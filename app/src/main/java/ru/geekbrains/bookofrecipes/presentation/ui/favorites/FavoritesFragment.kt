@@ -1,4 +1,4 @@
-package ru.mkedonsky.bookofrecipes.ui.dashboard
+package ru.geekbrains.bookofrecipes.presentation.ui.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater

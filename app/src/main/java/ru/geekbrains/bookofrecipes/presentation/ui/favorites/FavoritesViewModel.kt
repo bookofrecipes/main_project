@@ -1,4 +1,4 @@
-package ru.mkedonsky.bookofrecipes.ui.dashboard
+package ru.geekbrains.bookofrecipes.presentation.ui.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_x_small"
-    app:cardElevation="@dimen/margin_small"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:cardElevation="@dimen/margin_small" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image_dish"
                 android:layout_width="match_parent"
                 android:layout_height="194dp"
@@ -27,14 +28,14 @@
                 android:padding="@dimen/margin_medium">
 
                 <!-- заголовок -->
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/title_dish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     />
                 <!-- основной текст -->
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/recipes_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,16 +54,17 @@
                 android:orientation="horizontal">
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/favorites_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_x_small"
-                   app:icon="@color/black"
+                    app:icon="@drawable/ic_baseline_favorite_24"
                     style="?attr/borderlessButtonStyle"
                     />
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/details_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_baseline_zoom_in_24"
                     style="?attr/borderlessButtonStyle"
                     />
             </LinearLayout>
