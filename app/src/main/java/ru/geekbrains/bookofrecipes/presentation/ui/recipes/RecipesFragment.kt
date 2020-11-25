@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.android.synthetic.main.fragment_recipes.*
+import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import ru.geekbrains.bookofrecipes.R
 
 class RecipesFragment : Fragment() {
@@ -21,10 +23,15 @@ class RecipesFragment : Fragment() {
         recipesViewModel =
             ViewModelProvider(this).get(RecipesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
-        val textView: TextView = root.findViewById(R.id.text_recipes)
+
         recipesViewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
+            root.text_recipes.text = it
         })
+
+        root.button.setOnClickListener {
+            recipesViewModel.loadRandomRecipes()
+        }
+
         return root
     }
 }

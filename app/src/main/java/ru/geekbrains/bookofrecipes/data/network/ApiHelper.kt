@@ -3,7 +3,6 @@ package ru.geekbrains.bookofrecipes.data.network
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.geekbrains.bookofrecipes.data.response.RandomRecipesResponse
@@ -15,7 +14,7 @@ private const val BASIC_URL = "https://api.spoonacular.com/recipes/"
 private const val API_KEY = "379f3a723272484ca6a7ff139408e7a4"
 
 
-class ApiHelper : DataSource{
+class ApiHelper : DataSource {
     private fun getOkHttpClient(): OkHttpClient {
         val requestInterceptor = Interceptor { chain ->
             val httpUrl = chain.request()
@@ -46,19 +45,25 @@ class ApiHelper : DataSource{
 
 
     }
-    private fun getApiService(): SpoonacularApiService = getRetrofit().create(SpoonacularApiService::class.java)
+
+    private fun getApiService(): SpoonacularApiService =
+        getRetrofit().create(SpoonacularApiService::class.java)
 
 
-    override suspend fun getData(quantityOfRandom : Int): Response<RandomRecipesResponse> {
-        return getApiService().getRandomRecipes(quantityOfRandom)
+    override suspend fun getData(quantityOfRandom: Int): RandomRecipesResponse {
+        val response = getApiService().getRandomRecipes(quantityOfRandom)
+        return response.body()!!
     }
 
-    override suspend fun getData(id : Long): Response<RecipeInformationResponse> {
-        return getApiService().getRecipeInformation(id)
+    override suspend fun getData(id: Long): RecipeInformationResponse {
+        return getApiService().getRecipeInformation(id).body()!!
     }
 
-    override suspend fun getData(ingredients: String, quantityOfRecipes: Int): Response<RecipesByIngredientsResponse> {
-        return getApiService().getRecipesByIngredients(ingredients, quantityOfRecipes)
+    override suspend fun getData(
+        ingredients: String,
+        quantityOfRecipes: Int
+    ): RecipesByIngredientsResponse {
+        return getApiService().getRecipesByIngredients(ingredients, quantityOfRecipes).body()!!
     }
 
 }

@@ -3,7 +3,7 @@ package ru.geekbrains.bookofrecipes.domain.use_cases
 import ru.geekbrains.bookofrecipes.data.RecipesRepository
 import ru.geekbrains.bookofrecipes.data.response.RandomRecipesResponse
 
-class GetRandomRecipe(private val recipesRepo: RecipesRepository) :
+class GetRandomRecipes(private val recipesRepo: RecipesRepository) :
     UseCase<RandomRecipesResponse, Int>() {
 
     override suspend fun run(params: Int): RandomRecipesResponse {

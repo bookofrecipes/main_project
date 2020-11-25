@@ -6,7 +6,7 @@ import ru.geekbrains.bookofrecipes.data.response.RecipeInformationResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
 
 interface DataSource {
-    suspend fun getData(quantityOfRandom : Int): Response<RandomRecipesResponse>
-    suspend fun getData(id : Long): Response<RecipeInformationResponse>
-    suspend fun getData(ingredients: String, quantityOfRecipes : Int): Response<RecipesByIngredientsResponse>
+    suspend fun getData(quantityOfRandom: Int): RandomRecipesResponse
+    suspend fun getData(id: Long): RecipeInformationResponse
+    suspend fun getData(ingredients: String, quantityOfRecipes: Int): RecipesByIngredientsResponse
 }
