@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_recipes"
-        android:name="ru.mkedonsky.bookofrecipes.ui.recipes.RecipesFragment"
+        android:name="ru.geekbrains.bookofrecipes.presentation.ui.recipes.RecipesFragment"
         android:label="@string/title_recipes"
         tools:layout="@layout/fragment_recipes" />
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="ru.mkedonsky.bookofrecipes.ui.dashboard.FavoritesFragment"
+        android:name="ru.geekbrains.bookofrecipes.presentation.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites" />
 
