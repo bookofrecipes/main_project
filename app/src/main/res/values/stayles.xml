@@ -1,0 +1,18 @@
+
+<resources>
+    <style
+        name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+        <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+            <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        </style>
+
+        <style name="AppModalStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+            <item name="android:background">@drawable/bottom_sheet_dialog_background</item>
+        </style>
+</resources>
