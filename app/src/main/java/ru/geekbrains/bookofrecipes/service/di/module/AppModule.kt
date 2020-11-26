@@ -13,6 +13,7 @@ import ru.geekbrains.bookofrecipes.data.network.ApiHelper
 import ru.geekbrains.bookofrecipes.data.network.SpoonacularApiService
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
 import ru.geekbrains.bookofrecipes.presentation.ui.recipes.RecipesViewModel
+import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
 import java.util.concurrent.TimeUnit
 
 private const val BASIC_URL = "https://api.spoonacular.com/recipes/"
@@ -64,6 +65,8 @@ val appModule = module {
     single { provideRetrofit(get(), BASIC_URL) }
     single { provideApiService(get()) }
     single { ApiHelper(get()) }
+
+    single { RecipesAdapter() }
 }
 
 val repoModule = module {
@@ -71,4 +74,3 @@ val repoModule = module {
     single { GetRandomRecipes(get()) }
     single { RecipesRepository(get()) }
 }
-

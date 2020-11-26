@@ -5,15 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.geekbrains.bookofrecipes.data.RecipesRepository
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
+import ru.geekbrains.bookofrecipes.presentation.models.RecipeView
 
 class RecipesViewModel(private val getRandomRecipes: GetRandomRecipes) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is recipes Fragment"
-    }
-    val text: LiveData<String> = _text
+    private val _recipes = MutableLiveData<List<RecipeView>>()
+    val recipes: LiveData<List<RecipeView>> = _recipes
 
     fun loadRandomRecipes() = getRandomRecipes(10) {
-        _text.value = it.recipes[0].dishName
+        _recipes.value = it.recipes.map { recipeInfo ->
+            RecipeView(
+                recipeInfo.dishImageUrl,
+                recipeInfo.dishName,
+                recipeInfo.dishSummary
+            )
+        }
     }
 }
