@@ -1,4 +1,4 @@
-package ru.geekbrains.bookofrecipes.domain
+package ru.geekbrains.bookofrecipes.service
 
 sealed class Failure {
     object NetworkConnection : Failure()

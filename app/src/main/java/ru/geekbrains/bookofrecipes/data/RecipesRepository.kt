@@ -7,7 +7,7 @@ import ru.geekbrains.bookofrecipes.data.response.RecipeInformationResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
 import ru.geekbrains.bookofrecipes.domain.Repository
 
-class RecipesRepository(private val remoteDataSource: DataSource = ApiHelper()) : Repository {
+class RecipesRepository(private val remoteDataSource: ApiHelper) : Repository {
 
     override suspend fun getRandomRecipes(quantityOfRandom: Int): RandomRecipesResponse {
         return remoteDataSource.getData(quantityOfRandom)

@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import ru.geekbrains.bookofrecipes.data.RecipesRepository
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
 
-class RecipesViewModel : ViewModel() {
-
-    private val getRandomRecipes: GetRandomRecipes = GetRandomRecipes(RecipesRepository())
+class RecipesViewModel(private val getRandomRecipes: GetRandomRecipes) : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is recipes Fragment"

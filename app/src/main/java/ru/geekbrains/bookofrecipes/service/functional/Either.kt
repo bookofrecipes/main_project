@@ -1,4 +1,4 @@
-package ru.geekbrains.bookofrecipes.domain.functional
+package ru.geekbrains.bookofrecipes.service.functional
 
 sealed class Either<out L, out R> {
 
