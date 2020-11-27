@@ -32,15 +32,15 @@ private fun provideOkHTTPClient(): OkHttpClient {
             .build()
         return@Interceptor chain.proceed(request)
     }
-    if (BuildConfig.DEBUG) {
-        return OkHttpClient.Builder()
+    return if (BuildConfig.DEBUG) {
+        OkHttpClient.Builder()
             .addInterceptor(requestInterceptor)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()
     } else {
-        return OkHttpClient.Builder()
+        OkHttpClient.Builder()
             .addInterceptor(requestInterceptor)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)

@@ -1,25 +1,35 @@
 package ru.geekbrains.bookofrecipes.data.network
 
+import retrofit2.Response
 import ru.geekbrains.bookofrecipes.data.response.RandomRecipesResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipeInformationResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
+import ru.geekbrains.bookofrecipes.service.Failure
+import ru.geekbrains.bookofrecipes.service.functional.Either
+import ru.geekbrains.bookofrecipes.service.functional.Either.Left
+import ru.geekbrains.bookofrecipes.service.functional.Either.Right
 
 class ApiHelper(private val apiService: SpoonacularApiService) : DataSource {
 
-    override suspend fun getData(quantityOfRandom: Int): RandomRecipesResponse {
-        val response = apiService.getRandomRecipes(quantityOfRandom)
-        return response.body()!!
+    override suspend fun getData(quantityOfRandom: Int): Either<Failure, RandomRecipesResponse?> {
+        return responseHandle(apiService.getRandomRecipes(quantityOfRandom))
     }
 
-    override suspend fun getData(id: Long): RecipeInformationResponse {
-        return apiService.getRecipeInformation(id).body()!!
+    override suspend fun getData(id: Long): Either<Failure, RecipeInformationResponse?> {
+        return responseHandle(apiService.getRecipeInformation(id))
     }
 
     override suspend fun getData(
         ingredients: String,
         quantityOfRecipes: Int
-    ): RecipesByIngredientsResponse {
-        return apiService.getRecipesByIngredients(ingredients, quantityOfRecipes).body()!!
+    ): Either<Failure, RecipesByIngredientsResponse?> {
+        return responseHandle(apiService.getRecipesByIngredients(ingredients, quantityOfRecipes))
     }
 
+    private fun <T> responseHandle(response: Response<T>): Either<Failure, T?> {
+        return when (response.isSuccessful) {
+            true -> Right(response.body())
+            false -> Left(Failure.ServerError)
+        }
+    }
 }
