@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_recyclerview_item.view.*
-import ru.geekbrains.bookofrecipes.presentation.models.RecipeView
+import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import kotlin.properties.Delegates
 import ru.geekbrains.bookofrecipes.R
+import ru.geekbrains.bookofrecipes.service.extensions.loadFromUrl
 
 class RecipesAdapter() : RecyclerView.Adapter<RecipesAdapter.RecipesHolder>() {
 
-    internal var collection: List<RecipeView> by Delegates.observable(emptyList()) { _, _, _ ->
+    internal var collection: List<RecipeModelForRecycler> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
     }
 
@@ -29,7 +30,8 @@ class RecipesAdapter() : RecyclerView.Adapter<RecipesAdapter.RecipesHolder>() {
     override fun getItemCount(): Int = collection.size
 
     class RecipesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(recipeView: RecipeView) {
+        fun bind(recipeView: RecipeModelForRecycler) {
+            itemView.image_dish.loadFromUrl(recipeView.imageUrl)
             itemView.title_dish.text = recipeView.title
 //            itemView.recipes_text.text = recipeView.summary
         }
