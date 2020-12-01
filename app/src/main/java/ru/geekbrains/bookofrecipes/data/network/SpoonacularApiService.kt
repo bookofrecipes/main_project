@@ -12,16 +12,17 @@ interface SpoonacularApiService {
 
     @GET("random")
     suspend fun getRandomRecipes(
-            @Query("number") resultLimit: Int
+        @Query("number") resultLimit: Int
     ): Response<RandomRecipesResponse>
 
     @GET("{id}/information")
     suspend fun getRecipeInformation(
-            @Path("id") id: Long): Response<RecipeInformationResponse>
+        @Path("id") id: Long
+    ): Response<RecipeInformationResponse>
 
     @GET("findByIngredients")
     suspend fun getRecipesByIngredients(
-            @Query("ingredients") ingredients: String,
-            @Query("number") resultLimit: Int
+        @Query("ingredients") ingredients: String,
+        @Query("number") resultLimit: Int
     ): Response<RecipesByIngredientsResponse>
 }

@@ -10,4 +10,5 @@ class FavoritesViewModel : ViewModel() {
         value = "This is favorites Fragment"
     }
     val text: LiveData<String> = _text
+
 }

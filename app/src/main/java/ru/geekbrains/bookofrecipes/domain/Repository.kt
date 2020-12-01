@@ -1,18 +1,21 @@
-package ru.geekbrains.bookofrecipes.data.network
+package ru.geekbrains.bookofrecipes.domain
 
+import ru.geekbrains.bookofrecipes.data.DataSourceType
 import ru.geekbrains.bookofrecipes.data.response.RandomRecipesResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipeInformationResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.functional.Either
 
-interface DataSource {
+interface Repository {
+    suspend fun getRandomRecipes(quantityOfRandom: Int): Either<Failure, RandomRecipesResponse?>
 
-    suspend fun getData(quantityOfRandom: Int): Either<Failure, RandomRecipesResponse?>
+    suspend fun getRecipeInformation(
+        id: Long,
+        sourceType: DataSourceType
+    ): Either<Failure, RecipeInformationResponse?>
 
-    suspend fun getData(id: Long): Either<Failure, RecipeInformationResponse?>
-
-    suspend fun getData(
+    suspend fun getRecipeByIngredients(
         ingredients: String,
         quantityOfRecipes: Int
     ): Either<Failure, RecipesByIngredientsResponse?>

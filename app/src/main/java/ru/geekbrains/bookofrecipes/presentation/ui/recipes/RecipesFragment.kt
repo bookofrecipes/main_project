@@ -4,28 +4,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_recipes.view.*
+import org.koin.android.ext.android.get
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.geekbrains.bookofrecipes.R
+import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
 
 class RecipesFragment : Fragment() {
 
-    private lateinit var recipesViewModel: RecipesViewModel
+    private val recipesViewModel: RecipesViewModel by viewModel()
+    private val recipesAdapter: RecipesAdapter = get()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        recipesViewModel =
-                ViewModelProvider(this).get(RecipesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
-        val textView: TextView = root.findViewById(R.id.text_recipes)
-        recipesViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+
+        recipesViewModel.recipes.observe(viewLifecycleOwner, {
+            recipesAdapter.collection = it
         })
+
+        root.button.setOnClickListener {
+            recipesViewModel.loadRandomRecipes()
+        }
+
         return root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initializeView(view)
+    }
+
+    private fun initializeView(root: View) {
+        root.activity_recyclerview.layoutManager = LinearLayoutManager(root.context)
+        root.activity_recyclerview.adapter = recipesAdapter
+    }
+
 }
