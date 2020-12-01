@@ -8,8 +8,12 @@ import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.functional.Either
 import ru.geekbrains.bookofrecipes.service.functional.Either.Left
 import ru.geekbrains.bookofrecipes.service.functional.Either.Right
+import ru.geekbrains.bookofrecipes.service.utils.NetworkAvailabilityHandler
 
-class ApiHelper(private val apiService: SpoonacularApiService) : DataSource {
+class ApiHelper(
+    private val apiService: SpoonacularApiService,
+    private val networkHandler: NetworkAvailabilityHandler
+) : DataSource {
 
     override suspend fun getData(quantityOfRandom: Int): Either<Failure, RandomRecipesResponse?> =
         responseHandle(apiService.getRandomRecipes(quantityOfRandom))
@@ -24,8 +28,13 @@ class ApiHelper(private val apiService: SpoonacularApiService) : DataSource {
         responseHandle(apiService.getRecipesByIngredients(ingredients, quantityOfRecipes))
 
     private fun <T> responseHandle(response: Response<T>): Either<Failure, T?> =
-        when (response.isSuccessful) {
-            true -> Right(response.body())
-            false -> Left(Failure.ServerError)
+        when (networkHandler.isConnected()) {
+            true ->
+                when (response.isSuccessful) {
+                    true -> Right(response.body())
+                    false -> Left(Failure.ServerError)
+                }
+            false -> Left(Failure.NetworkConnection)
         }
+
 }

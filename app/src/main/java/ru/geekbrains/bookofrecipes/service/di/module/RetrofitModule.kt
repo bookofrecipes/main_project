@@ -58,5 +58,5 @@ val retrofitModule = module {
     single { provideOkHTTPClient() }
     single { provideRetrofit(get(), BASIC_URL) }
     single { provideApiService(get()) }
-    single { ApiHelper(get()) }
+    single { ApiHelper(get(), get()) }
 }
