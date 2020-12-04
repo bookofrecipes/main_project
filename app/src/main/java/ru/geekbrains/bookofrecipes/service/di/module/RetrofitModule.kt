@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit
 internal const val BASIC_URL = "https://api.spoonacular.com/recipes/"
 private const val API_KEY = "379f3a723272484ca6a7ff139408e7a4"
 
+private const val TIMEOUT_IN_SECONDS = 1L
+
 internal fun provideOkHTTPClient(): OkHttpClient {
     val requestInterceptor = Interceptor { chain ->
         val httpUrl = chain.request()
@@ -31,14 +33,14 @@ internal fun provideOkHTTPClient(): OkHttpClient {
         OkHttpClient.Builder()
             .addInterceptor(requestInterceptor)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
             .build()
     } else {
         OkHttpClient.Builder()
             .addInterceptor(requestInterceptor)
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
             .build()
     }
 }

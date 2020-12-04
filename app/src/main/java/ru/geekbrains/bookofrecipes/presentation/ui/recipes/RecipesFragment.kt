@@ -6,11 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.geekbrains.bookofrecipes.R
+import ru.geekbrains.bookofrecipes.presentation.MainActivity
+import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
+import ru.geekbrains.bookofrecipes.service.Failure
+import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
+import ru.geekbrains.bookofrecipes.service.Failure.ServerError
+import ru.geekbrains.bookofrecipes.service.extensions.observeData
+import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
 
 class RecipesFragment : Fragment() {
 
@@ -24,9 +33,8 @@ class RecipesFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-        recipesViewModel.recipes.observe(viewLifecycleOwner, {
-            recipesAdapter.collection = it
-        })
+        observeData(recipesViewModel.recipes, ::handleRecipeList)
+        observeFailure(recipesViewModel.failure, ::handleFailure)
 
         root.button.setOnClickListener {
             recipesViewModel.loadRandomRecipes()
@@ -45,4 +53,25 @@ class RecipesFragment : Fragment() {
         root.activity_recyclerview.adapter = recipesAdapter
     }
 
+    private fun handleRecipeList(list: List<RecipeModelForRecycler>) {
+        recipesAdapter.collection = list
+    }
+
+    private fun handleFailure(failure: Failure?) {
+        when (failure) {
+            NetworkConnection -> showFailure("No network connection on your device")
+            ServerError -> showFailure("Server error. Please, try again later.")
+            else -> return
+        }
+    }
+
+    private fun showFailure(message: String) {
+        val snackbar = Snackbar.make(
+            (activity as MainActivity).nav_host_fragment,
+            message,
+            Snackbar.LENGTH_LONG
+        )
+        snackbar.setAction("Reload") { recipesViewModel.loadRandomRecipes() }
+        snackbar.show()
+    }
 }

@@ -5,6 +5,8 @@ import ru.geekbrains.bookofrecipes.data.response.RandomRecipesResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipeInformationResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
 import ru.geekbrains.bookofrecipes.service.Failure
+import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
+import ru.geekbrains.bookofrecipes.service.Failure.ServerError
 import ru.geekbrains.bookofrecipes.service.functional.Either
 import ru.geekbrains.bookofrecipes.service.functional.Either.Left
 import ru.geekbrains.bookofrecipes.service.functional.Either.Right
@@ -16,25 +18,37 @@ class ApiHelper(
 ) : DataSource {
 
     override suspend fun getData(quantityOfRandom: Int): Either<Failure, RandomRecipesResponse?> =
-        responseHandle(apiService.getRandomRecipes(quantityOfRandom))
+        requestData { apiService.getRandomRecipes(quantityOfRandom) }
 
     override suspend fun getData(id: Long): Either<Failure, RecipeInformationResponse?> =
-        responseHandle(apiService.getRecipeInformation(id))
+        requestData { apiService.getRecipeInformation(id) }
 
     override suspend fun getData(
         ingredients: String,
         quantityOfRecipes: Int
     ): Either<Failure, RecipesByIngredientsResponse?> =
-        responseHandle(apiService.getRecipesByIngredients(ingredients, quantityOfRecipes))
-
-    private fun <T> responseHandle(response: Response<T>): Either<Failure, T?> =
-        when (networkHandler.isConnected()) {
-            true ->
-                when (response.isSuccessful) {
-                    true -> Right(response.body())
-                    false -> Left(Failure.ServerError)
-                }
-            false -> Left(Failure.NetworkConnection)
+        requestData {
+            apiService.getRecipesByIngredients(
+                ingredients,
+                quantityOfRecipes
+            )
         }
 
+    private fun <T> responseHandle(response: Response<T>): Either<Failure, T?> =
+        when (response.isSuccessful) {
+            true -> Right(response.body())
+            false -> Left(ServerError)
+        }
+
+    private suspend fun <T> requestData(request: suspend () -> Response<T>) =
+        when (networkHandler.isConnected()) {
+            true -> {
+                try {
+                    responseHandle(request())
+                } catch (exception: Throwable) {
+                    Left(ServerError)
+                }
+            }
+            false -> Left(NetworkConnection)
+        }
 }
