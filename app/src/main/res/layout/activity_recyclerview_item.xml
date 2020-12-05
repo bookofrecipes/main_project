@@ -7,6 +7,7 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/margin_medium"
     android:layout_margin="@dimen/margin_x_small"
     app:cardElevation="@dimen/margin_small" >
 
@@ -58,6 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_x_small"
                     app:icon="@drawable/ic_baseline_favorite_24"
+                    app:iconSize="@dimen/margin_large"
                     style="?attr/borderlessButtonStyle"
                     />
                 <com.google.android.material.button.MaterialButton
@@ -65,6 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_baseline_zoom_in_24"
+                    app:iconSize="@dimen/margin_large"
                     style="?attr/borderlessButtonStyle"
                     />
             </LinearLayout>
