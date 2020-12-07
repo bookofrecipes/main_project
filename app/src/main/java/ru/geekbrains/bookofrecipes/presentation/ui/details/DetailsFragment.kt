@@ -1,6 +1,5 @@
-package ru.geekbrains.bookofrecipes.presentation.ui
+package ru.geekbrains.bookofrecipes.presentation.ui.details
 
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,23 +9,30 @@ import android.view.ViewGroup
 import com.google.android.material.transition.MaterialContainerTransform
 import ru.geekbrains.bookofrecipes.R
 
-class DetalFragment : Fragment() {
+class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            drawingViewId = R.id.nav_host_fragment
-            duration = resources.getInteger(R.integer.).toLong()
-            scrimColor = Color.TRANSPARENT
-            setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
+        sharedElementEnterTransition = MaterialContainerTransform()
+
+        view?.let {
+            childFragmentManager.beginTransaction()
+                .addSharedElement(it,"shared_element_container")
+                .replace()
+                .addToBackStack(TAG)
+                .commit()
         }
+
     }
+
 
     companion object {
-        fun newInstance() = DetalFragment()
+        val TAG: String? = null
+
+        fun newInstance() = DetailsFragment()
     }
 
-    private lateinit var viewModel: DetalViewModel
+    private lateinit var viewModel: DetailsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -35,7 +41,7 @@ class DetalFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetalViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

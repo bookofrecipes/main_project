@@ -6,4 +6,6 @@
     <string name="title_recipes">Recipes</string>
     <string name="title_favorites">Favorites</string>
     <string name="back">Back</string>
+    <string name="card_detail_transition_name">card_detail</string>
+    <string name="title_detail">detail</string>
 </resources>

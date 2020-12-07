@@ -9,7 +9,19 @@
         android:id="@+id/navigation_recipes"
         android:name="ru.geekbrains.bookofrecipes.presentation.ui.recipes.RecipesFragment"
         android:label="@string/title_recipes"
-        tools:layout="@layout/fragment_recipes" />
+        tools:layout="@layout/fragment_recipes" >
+        <action
+            android:id="@+id/action_navigation_recipes_to_navigation_favorites"
+            app:destination="@id/navigation_favorites" />
+        <action
+            android:id="@+id/action_navigation_recipes_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="ru.geekbrains.bookofrecipes.presentation.ui.favorites.FavoritesFragment"
+        android:label="@string/title_detail"
+        tools:layout="@layout/detal_fragment" />
 
     <fragment
         android:id="@+id/navigation_favorites"

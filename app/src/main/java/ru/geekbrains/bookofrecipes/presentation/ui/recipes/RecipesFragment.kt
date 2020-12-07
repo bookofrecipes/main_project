@@ -9,12 +9,12 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialContainerTransform
-import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.detal_fragment.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.geekbrains.bookofrecipes.R
-import ru.geekbrains.bookofrecipes.presentation.ui.DetalFragment
+import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
 
 class RecipesFragment : Fragment() {
@@ -23,17 +23,25 @@ class RecipesFragment : Fragment() {
     private val recipesAdapter: RecipesAdapter = get()
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        showDetail()
 
-        val detalFragment = DetalFragment()
+        val detalFragment = DetailsFragment()
         detalFragment.sharedElementEnterTransition = MaterialContainerTransform()
+
+
+
+
     }
-
-
-
-
-
+    private fun showDetail(){
+        navigation_icon.setOnClickListener {
+            val extras = FragmentNavigatorExtras((view to "shared_element_container") as Pair<View, String>)
+            findNavController().navigate(R.id.action_navigation_recipes_to_navigation_detail
+                ,null,null,extras)
+        }
+    }
 
 
     override fun onCreateView(
@@ -64,12 +72,5 @@ class RecipesFragment : Fragment() {
         root.activity_recyclerview.adapter = recipesAdapter
     }
 
-    override fun onImageClicked(cardView: View,) {
-        val emailCardDetailTransitionName = getString(R.s)
-        val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)
-        val directions = HomeFragmentDirections.actionHomeFragmentToEmailFragment(email.id)
-        findNavController().navigate(directions, extras)
-        // TODO: Set up MaterialElevationScale transition as exit and reenter transitions.
-    }
-
+//
 }
