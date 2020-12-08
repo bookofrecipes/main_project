@@ -1,0 +1,104 @@
+Index: app/src/main/java/ru/geekbrains/bookofrecipes/presentation/ui/recipes/RecipesFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.geekbrains.bookofrecipes.presentation.ui.recipes\n\nimport android.os.Bundle\nimport android.view.LayoutInflater\nimport android.view.View\nimport android.view.ViewGroup\nimport androidx.fragment.app.Fragment\nimport androidx.navigation.fragment.FragmentNavigatorExtras\nimport androidx.navigation.fragment.findNavController\nimport androidx.recyclerview.widget.LinearLayoutManager\nimport com.google.android.material.transition.MaterialContainerTransform\nimport kotlinx.android.synthetic.main.detal_fragment.*\nimport kotlinx.android.synthetic.main.fragment_recipes.view.*\nimport org.koin.android.ext.android.get\nimport org.koin.android.viewmodel.ext.android.viewModel\nimport ru.geekbrains.bookofrecipes.R\nimport ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment\nimport ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter\n\nclass RecipesFragment : Fragment() {\n\n    private val recipesViewModel: RecipesViewModel by viewModel()\n    private val recipesAdapter: RecipesAdapter = get()\n\n\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        showDetail()\n\n        val detalFragment = DetailsFragment()\n        detalFragment.sharedElementEnterTransition = MaterialContainerTransform()\n\n\n\n\n    }\n    private fun showDetail(){\n        navigation_icon.setOnClickListener {\n            val extras = FragmentNavigatorExtras((view to \"shared_element_container\") as Pair<View, String>)\n            findNavController().navigate(R.id.action_navigation_recipes_to_navigation_detail\n                ,null,null,extras)\n        }\n    }\n\n\n    override fun onCreateView(\n        inflater: LayoutInflater,\n        container: ViewGroup?,\n        savedInstanceState: Bundle?\n    ): View? {\n        val root = inflater.inflate(R.layout.fragment_recipes, container, false)\n\n        recipesViewModel.recipes.observe(viewLifecycleOwner, {\n            recipesAdapter.collection = it\n        })\n\n        root.button.setOnClickListener {\n            recipesViewModel.loadRandomRecipes()\n        }\n\n        return root\n    }\n\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\n        super.onViewCreated(view, savedInstanceState)\n        initializeView(view)\n    }\n\n    private fun initializeView(root: View) {\n        root.activity_recyclerview.layoutManager = LinearLayoutManager(root.context)\n        root.activity_recyclerview.adapter = recipesAdapter\n    }\n\n//\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ru/geekbrains/bookofrecipes/presentation/ui/recipes/RecipesFragment.kt	(revision b91528389b5cd83b1d729eb899f99463df4a5d94)
++++ app/src/main/java/ru/geekbrains/bookofrecipes/presentation/ui/recipes/RecipesFragment.kt	(date 1607374674000)
+@@ -5,45 +5,27 @@
+ import android.view.View
+ import android.view.ViewGroup
+ import androidx.fragment.app.Fragment
+-import androidx.navigation.fragment.FragmentNavigatorExtras
+-import androidx.navigation.fragment.findNavController
+ import androidx.recyclerview.widget.LinearLayoutManager
+-import com.google.android.material.transition.MaterialContainerTransform
+-import kotlinx.android.synthetic.main.detal_fragment.*
++import com.google.android.material.snackbar.Snackbar
++import kotlinx.android.synthetic.main.activity_main.*
+ import kotlinx.android.synthetic.main.fragment_recipes.view.*
+ import org.koin.android.ext.android.get
+ import org.koin.android.viewmodel.ext.android.viewModel
+ import ru.geekbrains.bookofrecipes.R
+-import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
++import ru.geekbrains.bookofrecipes.presentation.MainActivity
++import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
+ import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
++import ru.geekbrains.bookofrecipes.service.Failure
++import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
++import ru.geekbrains.bookofrecipes.service.Failure.ServerError
++import ru.geekbrains.bookofrecipes.service.extensions.observeData
++import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
+ 
+ class RecipesFragment : Fragment() {
+ 
+     private val recipesViewModel: RecipesViewModel by viewModel()
+     private val recipesAdapter: RecipesAdapter = get()
+ 
+-
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        showDetail()
+-
+-        val detalFragment = DetailsFragment()
+-        detalFragment.sharedElementEnterTransition = MaterialContainerTransform()
+-
+-
+-
+-
+-    }
+-    private fun showDetail(){
+-        navigation_icon.setOnClickListener {
+-            val extras = FragmentNavigatorExtras((view to "shared_element_container") as Pair<View, String>)
+-            findNavController().navigate(R.id.action_navigation_recipes_to_navigation_detail
+-                ,null,null,extras)
+-        }
+-    }
+-
+-
+     override fun onCreateView(
+         inflater: LayoutInflater,
+         container: ViewGroup?,
+@@ -51,9 +33,8 @@
+     ): View? {
+         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
+ 
+-        recipesViewModel.recipes.observe(viewLifecycleOwner, {
+-            recipesAdapter.collection = it
+-        })
++        observeData(recipesViewModel.recipes, ::handleRecipeList)
++        observeFailure(recipesViewModel.failure, ::handleFailure)
+ 
+         root.button.setOnClickListener {
+             recipesViewModel.loadRandomRecipes()
+@@ -72,5 +53,25 @@
+         root.activity_recyclerview.adapter = recipesAdapter
+     }
+ 
+-//
++    private fun handleRecipeList(list: List<RecipeModelForRecycler>) {
++        recipesAdapter.collection = list
++    }
++
++    private fun handleFailure(failure: Failure?) {
++        when (failure) {
++            NetworkConnection -> showFailure("No network connection on your device")
++            ServerError -> showFailure("Server error. Please, try again later.")
++            else -> return
++        }
++    }
++
++    private fun showFailure(message: String) {
++        val snackbar = Snackbar.make(
++            (activity as MainActivity).nav_host_fragment,
++            message,
++            Snackbar.LENGTH_LONG
++        )
++        snackbar.setAction("Reload") { recipesViewModel.loadRandomRecipes() }
++        snackbar.show()
++    }
+ }
+\ No newline at end of file
