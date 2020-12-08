@@ -8,7 +8,7 @@ import ru.geekbrains.bookofrecipes.presentation.ui.recipes.RecipesViewModel
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
 
 val appModule = module {
-    single { RecipesAdapter() }
+//    single { RecipesAdapter() }
 }
 
 val repoModule = module {

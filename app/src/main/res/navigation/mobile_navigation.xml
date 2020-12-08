@@ -9,7 +9,7 @@
         android:id="@+id/navigation_recipes"
         android:name="ru.geekbrains.bookofrecipes.presentation.ui.recipes.RecipesFragment"
         android:label="@string/title_recipes"
-        tools:layout="@layout/fragment_recipes" >
+        tools:layout="@layout/fragment_recipes">
         <action
             android:id="@+id/action_navigation_recipes_to_navigation_favorites"
             app:destination="@id/navigation_favorites" />
@@ -19,9 +19,13 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_detail"
-        android:name="ru.geekbrains.bookofrecipes.presentation.ui.favorites.FavoritesFragment"
+        android:name="ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment"
         android:label="@string/title_detail"
-        tools:layout="@layout/detal_fragment" />
+        tools:layout="@layout/detail_fragment">
+        <argument
+            android:name="recipe"
+            app:argType="ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favorites"
