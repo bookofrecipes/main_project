@@ -14,7 +14,7 @@ import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragmen
 
 class MainActivity : AppCompatActivity() {
 
-    private  var searchDialogFragment: SearchDialogFragment = SearchDialogFragment()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +41,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun searchByIngredients(view: View){
-        searchDialogFragment.show(supportFragmentManager, "MyCustomFragment")
-    }
 
-    fun onClickSearchByIngredients(view:View){
-        searchDialogFragment.getRecipesByIngredients()
-    }
 
 }

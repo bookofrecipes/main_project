@@ -9,7 +9,7 @@ android:layout_height="wrap_content">
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
-    android:text="Search by ingredients"
+    android:text="@string/search_by_ingredients"
     android:textSize="20sp"
     android:textStyle="bold"
     app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@ android:layout_height="wrap_content">
     android:layout_height="47dp"
     android:layout_marginTop="16dp"
     android:ems="10"
-    android:hint="type here"
+    android:hint="@string/type_here"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/tv_login" />
@@ -34,14 +34,12 @@ android:layout_height="wrap_content">
     android:layout_marginStart="16dp"
     android:layout_marginBottom="16dp"
     android:background="#2196F3"
-    android:text="search"
-    android:onClick="onClickSearchByIngredients"
+    android:text="@string/search"
     android:textColor="#FFFFFF"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.943"
     app:layout_constraintStart_toStartOf="parent"
-
     app:layout_constraintVertical_bias="0.0" />
 
 

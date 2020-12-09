@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
@@ -15,6 +16,7 @@ import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
+import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragment
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
 import ru.geekbrains.bookofrecipes.service.Failure.ServerError
@@ -25,6 +27,9 @@ class RecipesFragment : Fragment() {
 
     private val recipesViewModel: RecipesViewModel by viewModel()
     private val recipesAdapter: RecipesAdapter = get()
+    private lateinit var floatingActionButton : FloatingActionButton
+
+    private  var searchDialogFragment: SearchDialogFragment = SearchDialogFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +37,12 @@ class RecipesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
+
+        floatingActionButton  = root.findViewById(R.id.search_fab)
+
+        floatingActionButton.setOnClickListener {
+            activity?.supportFragmentManager?.let{ searchDialogFragment.show(it, "MyCustomFragment")}
+        }
 
         observeData(recipesViewModel.recipes, ::handleRecipeList)
         observeFailure(recipesViewModel.failure, ::handleFailure)
@@ -74,4 +85,4 @@ class RecipesFragment : Fragment() {
         snackbar.setAction("Reload") { recipesViewModel.loadRandomRecipes() }
         snackbar.show()
     }
-}
+    }

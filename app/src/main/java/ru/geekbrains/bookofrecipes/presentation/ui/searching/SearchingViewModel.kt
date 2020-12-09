@@ -2,9 +2,7 @@ package ru.geekbrains.bookofrecipes.presentation.ui.searching
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.geekbrains.bookofrecipes.data.response.RandomRecipesResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
-import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRecipesByIngredients
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import ru.geekbrains.bookofrecipes.presentation.ui.BaseViewModel

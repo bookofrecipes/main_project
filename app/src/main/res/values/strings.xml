@@ -5,4 +5,7 @@
     <string name="Delet_ingredients">X</string>
     <string name="title_recipes">Recipes</string>
     <string name="title_favorites">Favorites</string>
+    <string name="search_by_ingredients">Search by ingredients</string>
+    <string name="type_here">type here</string>
+    <string name="search">search</string>
 </resources>

@@ -4,29 +4,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import kotlinx.android.synthetic.main.fragment_search_dialog.*
 import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
-import ru.geekbrains.bookofrecipes.presentation.ui.recipes.RecipesViewModel
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.extensions.observeData
 import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
 
 class SearchDialogFragment : DialogFragment() {
+
+    private lateinit var searchBtn : Button
     private val searchingRecipesViewModel: SearchingViewModel by viewModel()
     private val recipesAdapter: RecipesAdapter = get()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         getDialog()!!.getWindow()
-        val root = inflater.inflate(R.layout.fragment_search_dialog, container, false)
+        val root = inflater.inflate(R.layout.fragment_search_dialog, container, true)
+
+        searchBtn = root.findViewById(R.id.btn_search)
+        searchBtn.setOnClickListener {
+            getRecipesByIngredients()
+        }
 
         observeData(searchingRecipesViewModel.recipes, ::handleRecipeList)
         observeFailure(searchingRecipesViewModel.failure, ::handleFailure)
