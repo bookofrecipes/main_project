@@ -43,11 +43,10 @@ class MainActivity : AppCompatActivity() {
 
     fun searchByIngredients(view: View){
         searchDialogFragment.show(supportFragmentManager, "MyCustomFragment")
-
     }
 
     fun onClickSearchByIngredients(view:View){
-        println("${searchDialogFragment.getTextFromEditText()}                   that's it")
+        searchDialogFragment.getRecipesByIngredients()
     }
 
 }
