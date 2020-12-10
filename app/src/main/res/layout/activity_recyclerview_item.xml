@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
@@ -9,6 +10,7 @@
     android:layout_margin="@dimen/margin_x_small"
     app:cardCornerRadius="@dimen/margin_medium"
     app:cardElevation="@dimen/margin_small"
+    android:transitionName="@string/recipe_card_transition_name"
     tools:ignore="UnusedAttribute">
 
     <LinearLayout
@@ -33,6 +35,7 @@
                 android:id="@+id/title_dish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_standard_header"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
             <!-- основной текст -->
             <androidx.appcompat.widget.AppCompatTextView
@@ -40,14 +43,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
+                android:textSize="@dimen/text_size_standard"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary" />
+
+            <ImageButton
+                android:id="@+id/recycler_navigation_icon"
+                android:layout_width="47dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="?attr/actionBarItemBackground"
+                android:contentDescription="@string/back"
+                app:layout_constraintBottom_toBottomOf="@+id/attachment_recycler_view"
+                app:srcCompat="@drawable/ic_arrow_down" />
 
         </LinearLayout>
 
         <!-- Кнопки -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="380dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_x_small"
             android:orientation="horizontal">
@@ -55,8 +69,9 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/favorites_button"
                 style="?attr/borderlessButtonStyle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xxx_large"
                 android:layout_marginEnd="@dimen/margin_x_small"
                 app:icon="@drawable/ic_baseline_favorite_24"
                 app:iconSize="@dimen/margin_large" />
@@ -64,23 +79,13 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/details_button"
                 style="?attr/borderlessButtonStyle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
                 app:icon="@drawable/ic_baseline_zoom_in_24"
                 app:iconSize="@dimen/margin_large" />
 
-            <ImageButton
-                android:id="@+id/recycler_navigation_icon"
-                android:layout_width="44dp"
-                android:layout_height="34dp"
-                android:layout_marginEnd="20dp"
-                android:background="?attr/actionBarItemBackground"
-                android:contentDescription="@string/back"
-                app:layout_constraintBottom_toBottomOf="@+id/attachment_recycler_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_arrow_down" />
+
         </LinearLayout>
 
     </LinearLayout>

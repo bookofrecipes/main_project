@@ -62,7 +62,8 @@ class DetailsFragment : Fragment() {
 
         val recipeData = arguments?.getSerializable("recipe") as RecipeModelForRecycler
 
-        view.details_textView.text = recipeData.title
+        view.title_detail_dish.text = recipeData.title
+        view.full_detail_dish.text = recipeData.creditText
         view.detail_image_dish.loadFromUrl(recipeData.imageUrl)
     }
 

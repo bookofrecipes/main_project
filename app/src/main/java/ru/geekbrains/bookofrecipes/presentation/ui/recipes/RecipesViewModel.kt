@@ -23,6 +23,7 @@ class RecipesViewModel(private val getRandomRecipes: GetRandomRecipes) : ViewMod
                 recipeInfo.dishId,
                 recipeInfo.dishImageUrl,
                 recipeInfo.dishName,
+                recipeInfo.creditText,
                 recipeInfo.dishSummary
             )
         }
