@@ -3,15 +3,14 @@ package ru.geekbrains.bookofrecipes.presentation.ui.details
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.content.res.use
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.detail_fragment.view.*
@@ -44,7 +43,6 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private lateinit var viewModel: DetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,14 +61,9 @@ class DetailsFragment : Fragment() {
         val recipeData = arguments?.getSerializable("recipe") as RecipeModelForRecycler
 
         view.title_detail_dish.text = recipeData.title
-        view.full_detail_dish.text = recipeData.creditText
+        view.full_detail_dish.text = recipeData.summary
         view.detail_image_dish.loadFromUrl(recipeData.imageUrl)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
 }
