@@ -1,46 +1,44 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="wrap_content">
-
-<TextView
-    android:id="@+id/tv_login"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/ShapeAppearanceOverlay.Demo"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:text="@string/search_by_ingredients"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    android:orientation="vertical"
+    android:padding="10dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
 
-   <EditText
-    android:id="@+id/searchingByIngredients_EditText"
-    android:layout_width="199dp"
-    android:layout_height="47dp"
-    android:layout_marginTop="16dp"
-    android:ems="10"
-    android:hint="@string/type_here"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tv_login" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/search_by_ingredients"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-<Button
-    android:id="@+id/btn_start_searching"
-    android:layout_width="114dp"
-    android:layout_height="38dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginBottom="16dp"
-    android:background="#2196F3"
-    android:text="@string/search"
-    android:textColor="#FFFFFF"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.943"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintVertical_bias="0.0" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="clear_text">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchingByIngredients_EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/type_here"
+            android:hint="@string/ingredients"
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_start_searching"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/search"
+        app:cornerRadius="8dp" />
+
+</LinearLayout>

@@ -26,13 +26,14 @@ import ru.geekbrains.bookofrecipes.service.extensions.observeData
 import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
 
 
-private const val TARGET_FRAGMENT_REQUEST_CODE = 1;
-private const val EXTRA_GREETING_MESSAGE = "message";
+private const val TARGET_FRAGMENT_REQUEST_CODE = 1
+private const val EXTRA_GREETING_MESSAGE = "message"
+
 class RecipesFragment : Fragment() {
 
     private val recipesViewModel: RecipesViewModel by viewModel()
     private val recipesAdapter: RecipesAdapter = get()
-    private  var searchDialogFragment: SearchDialogFragment = get()
+    private val searchDialogFragment: SearchDialogFragment = get()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,8 +44,9 @@ class RecipesFragment : Fragment() {
 
         searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
         root.search_fab.setOnClickListener {
-            parentFragmentManager.let{
-                searchDialogFragment.show(it, "SearchingDialogFragment")}
+            parentFragmentManager.let {
+                searchDialogFragment.show(it, "SearchingDialogFragment")
+            }
         }
 
         root.button.setOnClickListener {
@@ -58,16 +60,19 @@ class RecipesFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if( resultCode != Activity.RESULT_OK ) {
-            Log.e("RecipesFragment","resultCode = $requestCode doesn't equal to Activity.Result_OK")
+        if (resultCode != Activity.RESULT_OK) {
+            Log.e(
+                "RecipesFragment",
+                "resultCode = $requestCode doesn't equal to Activity.Result_OK"
+            )
             return
         }
-        if( requestCode == TARGET_FRAGMENT_REQUEST_CODE ) {
+        if (requestCode == TARGET_FRAGMENT_REQUEST_CODE) {
             data?.getStringExtra(EXTRA_GREETING_MESSAGE)?.let {
-                recipesViewModel.loadRecipesByIngredients(it) }
+                recipesViewModel.loadRecipesByIngredients(it)
             }
-
         }
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,4 +106,4 @@ class RecipesFragment : Fragment() {
         snackbar.setAction("Reload") { recipesViewModel.loadRandomRecipes() }
         snackbar.show()
     }
-    }
+}

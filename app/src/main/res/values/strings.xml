@@ -2,10 +2,11 @@
     <string name="app_name">Book of recipes</string>
     <string name="button_search">Search</string>
     <string name="search_hint">Ingredients</string>
-    <string name="Delet_ingredients">X</string>
+    <string name="Delete_ingredients">X</string>
     <string name="title_recipes">Recipes</string>
     <string name="title_favorites">Favorites</string>
     <string name="search_by_ingredients">Search by ingredients</string>
     <string name="type_here">type here</string>
+    <string name="ingredients">Please, enter ingredients</string>
     <string name="search">search</string>
 </resources>

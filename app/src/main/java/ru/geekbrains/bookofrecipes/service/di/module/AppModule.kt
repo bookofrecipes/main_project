@@ -17,7 +17,7 @@ val appModule = module {
 }
 
 val repoModule = module {
-    viewModel { RecipesViewModel(get(),get()) }
+    viewModel { RecipesViewModel(get(), get()) }
     single { GetRandomRecipes(get()) }
     single { GetRecipesByIngredients(get()) }
     single { RecipesRepository(get()) }
