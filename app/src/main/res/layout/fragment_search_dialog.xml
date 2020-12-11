@@ -16,7 +16,7 @@ android:layout_height="wrap_content">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
-<EditText
+   <EditText
     android:id="@+id/searchingByIngredients_EditText"
     android:layout_width="199dp"
     android:layout_height="47dp"
@@ -28,7 +28,7 @@ android:layout_height="wrap_content">
     app:layout_constraintTop_toBottomOf="@+id/tv_login" />
 
 <Button
-    android:id="@+id/btn_search"
+    android:id="@+id/btn_start_searching"
     android:layout_width="114dp"
     android:layout_height="38dp"
     android:layout_marginStart="16dp"

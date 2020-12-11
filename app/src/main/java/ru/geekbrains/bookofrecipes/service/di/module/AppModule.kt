@@ -8,7 +8,7 @@ import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRecipesByIngredients
 import ru.geekbrains.bookofrecipes.presentation.ui.recipes.RecipesViewModel
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
-import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchingViewModel
+import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragment
 import ru.geekbrains.bookofrecipes.service.utils.NetworkAvailabilityHandler
 
 val appModule = module {
@@ -17,9 +17,10 @@ val appModule = module {
 }
 
 val repoModule = module {
-    viewModel { RecipesViewModel(get()) }
+    viewModel { RecipesViewModel(get(),get()) }
     single { GetRandomRecipes(get()) }
     single { GetRecipesByIngredients(get()) }
     single { RecipesRepository(get()) }
-    viewModel { SearchingViewModel(get()) }
+    single { SearchDialogFragment() }
+
 }

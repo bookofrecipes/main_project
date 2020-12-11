@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
@@ -27,9 +27,7 @@ class RecipesFragment : Fragment() {
 
     private val recipesViewModel: RecipesViewModel by viewModel()
     private val recipesAdapter: RecipesAdapter = get()
-    private lateinit var floatingActionButton : FloatingActionButton
-
-    private  var searchDialogFragment: SearchDialogFragment = SearchDialogFragment()
+    private  var searchDialogFragment: SearchDialogFragment = get()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,14 +36,17 @@ class RecipesFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-        floatingActionButton  = root.findViewById(R.id.search_fab)
-
-        floatingActionButton.setOnClickListener {
+        root.search_fab.setOnClickListener {
             activity?.supportFragmentManager?.let{ searchDialogFragment.show(it, "MyCustomFragment")}
         }
 
         observeData(recipesViewModel.recipes, ::handleRecipeList)
         observeFailure(recipesViewModel.failure, ::handleFailure)
+
+        //получаем изменения в SearchDialogFragment.liveIngredientsResponse  и делаем запрос на сервер через RecipeViewModel
+        searchDialogFragment.liveIngredientsResponse.observe(viewLifecycleOwner, Observer { ingredients ->
+            recipesViewModel.loadRecipesByIngredients(ingredients)
+        })
 
         root.button.setOnClickListener {
             recipesViewModel.loadRandomRecipes()
@@ -53,6 +54,7 @@ class RecipesFragment : Fragment() {
 
         return root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
