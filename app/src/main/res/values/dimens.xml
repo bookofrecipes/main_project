@@ -17,7 +17,8 @@
     <dimen name="margin_large">30dp</dimen>
     <dimen name="margin_x_large">35dp</dimen>
     <dimen name="margin_xx_large">40dp</dimen>
-    <dimen name="margin_xxx_large">45dp</dimen>
+    <dimen name="margin_xxx_large">55dp</dimen>
+    <dimen name="margin_xxxx_large">62dp</dimen>
 
     //Text size
     <dimen name="text_size_tip">10sp</dimen>
@@ -27,4 +28,5 @@
 
     //Corner radius
     <dimen name="bottom_sheet_dialog_corner_radius">10dp</dimen>
+
 </resources>

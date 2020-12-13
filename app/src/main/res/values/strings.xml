@@ -13,4 +13,5 @@
     <string name="type_here">type here</string>
     <string name="ingredients">Please, enter ingredients</string>
     <string name="search">search</string>
+    <string name="debug_button">Debug Button</string>
 </resources>

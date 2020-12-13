@@ -1,20 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/ShapeAppearanceOverlay.Demo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:background="@android:color/transparent"
+    android:padding="@dimen/margin_small"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="@dimen/margin_xx_small"
         android:text="@string/search_by_ingredients"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_standard_header"
+        android:textColorLink="@color/primaryTextColor"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -36,9 +39,9 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_start_searching"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="@dimen/margin_xxx_large"
+        android:layout_marginTop="@dimen/margin_small"
         android:text="@string/search"
-        app:cornerRadius="8dp" />
+        app:cornerRadius="@dimen/margin_small" />
 
 </LinearLayout>
