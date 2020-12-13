@@ -7,14 +7,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
-import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.geekbrains.bookofrecipes.R
+import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
+import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
@@ -29,11 +34,26 @@ import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
 private const val TARGET_FRAGMENT_REQUEST_CODE = 1
 private const val EXTRA_GREETING_MESSAGE = "message"
 
-class RecipesFragment : Fragment() {
+class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
     private val recipesViewModel: RecipesViewModel by viewModel()
-    private val recipesAdapter: RecipesAdapter = get()
+    private val recipesAdapter: RecipesAdapter = RecipesAdapter(this)
     private val searchDialogFragment: SearchDialogFragment = get()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val detailFragment = DetailsFragment()
+        detailFragment.sharedElementEnterTransition = MaterialContainerTransform()
+    }
+
+    override fun onRecipeClick(recipeView: View, recipeData: RecipeModelForRecycler) {
+        val recipeCardDetailTransitionName = getString(R.string.recipe_card_detail_transition_name)
+        val extras = FragmentNavigatorExtras((recipeView to recipeCardDetailTransitionName))
+        val d = RecipesFragmentDirections.actionNavigationRecipesToNavigationDetail(recipeData)
+
+        findNavController().navigate(d, extras)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,6 +98,9 @@ class RecipesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView(view)
+
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     private fun initializeView(root: View) {

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/details_recipes"
+    tools:context=".presentation.ui.details.DetailsFragment" >
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:colorBackground"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingHorizontal="@dimen/margin_xx_small"
+        android:paddingTop="@dimen/margin_small">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:transitionName="@string/recipe_card_detail_transition_name">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/margin_medium"
+                android:paddingTop="@dimen/margin_xxx_medium">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/detail_image_dish"
+                    android:scaleType="fitXY"
+                    android:layout_width="match_parent"
+                    android:layout_height="194dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title_detail_dish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_xxx_large"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textSize="@dimen/text_size_standard_header"
+                    app:layout_constraintEnd_toStartOf="@+id/navigation_icon"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_dish" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/full_detail_dish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_xxx_large"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:textSize="@dimen/text_size_standard"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    app:layout_constraintTop_toBottomOf="@+id/title_detail_dish" />
+
+                <ImageButton
+                    android:id="@+id/navigation_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/actionBarItemBackground"
+                    android:contentDescription="@string/back"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image_dish"
+                    app:srcCompat="@drawable/ic_arrow_down" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+    <!--                <androidx.recyclerview.widget.RecyclerView-->
+                <!--                    android:id="@+id/attachment_recycler_view"-->
+                <!--                    android:layout_width="356dp"-->
+                <!--                    android:layout_height="124dp"-->
+                <!--                    android:layout_marginBottom="16dp"-->
+                <!--                    android:overScrollMode="never"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintVertical_bias="0.52" />-->
+
+
+
+

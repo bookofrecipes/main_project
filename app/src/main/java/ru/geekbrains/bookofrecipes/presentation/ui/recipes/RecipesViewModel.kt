@@ -28,9 +28,10 @@ class RecipesViewModel(
     private fun handleRandomRecipes(randomRecipes: RandomRecipesResponse?) {
         _recipes.value = randomRecipes?.recipes?.map { recipeInfo ->
             RecipeModelForRecycler(
-                recipeInfo.dishImageUrl,
-                recipeInfo.dishName,
-                recipeInfo.dishSummary
+                    recipeInfo.dishId,
+                    recipeInfo.dishImageUrl,
+                    recipeInfo.dishName,
+                    recipeInfo.dishSummary
             )
         }
     }

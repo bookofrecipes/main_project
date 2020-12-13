@@ -5,6 +5,10 @@
     <string name="Delete_ingredients">X</string>
     <string name="title_recipes">Recipes</string>
     <string name="title_favorites">Favorites</string>
+    <string name="back">Back</string>
+    <string name="title_detail">Details</string>
+    <string name="recipe_card_transition_name">recipe_card_%1$d</string>
+    <string name="recipe_card_detail_transition_name">recipe_card_detail</string>
     <string name="search_by_ingredients">Search by ingredients</string>
     <string name="type_here">type here</string>
     <string name="ingredients">Please, enter ingredients</string>

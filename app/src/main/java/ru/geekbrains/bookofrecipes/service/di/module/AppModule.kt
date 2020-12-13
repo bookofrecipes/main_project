@@ -12,7 +12,7 @@ import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragmen
 import ru.geekbrains.bookofrecipes.service.utils.NetworkAvailabilityHandler
 
 val appModule = module {
-    single { RecipesAdapter() }
+//    single { RecipesAdapter() }
     single { NetworkAvailabilityHandler(androidContext()) }
 }
 

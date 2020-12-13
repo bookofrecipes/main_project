@@ -10,24 +10,40 @@ import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.service.extensions.inflate
 import ru.geekbrains.bookofrecipes.service.extensions.loadFromUrl
 
-class RecipesAdapter() : RecyclerView.Adapter<RecipesAdapter.RecipesHolder>() {
+class RecipesAdapter(private val listener: RecipesAdapterListener) :
+    RecyclerView.Adapter<RecipesAdapter.RecipesHolder>() {
 
     internal var collection: List<RecipeModelForRecycler> by
     Delegates.observable(emptyList()) { _, _, _ -> notifyDataSetChanged() }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        RecipesHolder(parent.inflate(R.layout.activity_recyclerview_item))
+        RecipesHolder(listener, parent.inflate(R.layout.activity_recyclerview_item))
+
 
     override fun onBindViewHolder(holder: RecipesHolder, position: Int) =
         holder.bind(collection[position])
 
     override fun getItemCount() = collection.size
 
-    class RecipesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class RecipesHolder(private val listener: RecipesAdapterListener, itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
         fun bind(recipeView: RecipeModelForRecycler) {
             itemView.image_dish.loadFromUrl(recipeView.imageUrl)
             itemView.title_dish.text = recipeView.title
+            itemView.recycler_navigation_icon.setOnClickListener {
+                listener.onRecipeClick(itemView, recipeView)
+            }
+
+            val recipeCardItemTransitionName =
+                itemView.resources.getString(R.string.recipe_card_transition_name, recipeView.id)
+            itemView.transitionName = recipeCardItemTransitionName
+
 //            itemView.recipes_text.text = recipeView.summary
         }
+    }
+
+
+    interface RecipesAdapterListener {
+        fun onRecipeClick(recipeView: View, recipeData: RecipeModelForRecycler)
     }
 }

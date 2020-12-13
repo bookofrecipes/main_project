@@ -8,67 +8,87 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_x_small"
-    app:cardElevation="@dimen/margin_small" >
+    app:cardCornerRadius="@dimen/margin_medium"
+    app:cardElevation="@dimen/margin_small"
+    android:transitionName="@string/recipe_card_transition_name"
+    tools:ignore="UnusedAttribute">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_dish"
+            android:layout_width="match_parent"
+            android:layout_height="194dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/margin_medium">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/image_dish"
-                android:layout_width="match_parent"
-                android:layout_height="194dp"
-                android:scaleType="centerCrop" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/margin_medium">
-
-                <!-- заголовок -->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/title_dish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    />
-                <!-- основной текст -->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/recipes_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary"
-                    />
-
-            </LinearLayout>
-
-            <!-- Кнопки -->
-            <LinearLayout
+            <!-- заголовок -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title_dish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_x_small"
-                android:orientation="horizontal">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/favorites_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_x_small"
-                    app:icon="@drawable/ic_baseline_favorite_24"
-                    style="?attr/borderlessButtonStyle"
-                    />
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/details_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_baseline_zoom_in_24"
-                    style="?attr/borderlessButtonStyle"
-                    />
-            </LinearLayout>
+                android:textSize="@dimen/text_size_standard_header"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+            <!-- основной текст -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/recipes_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:textSize="@dimen/text_size_standard"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary" />
+
+            <ImageButton
+                android:id="@+id/recycler_navigation_icon"
+                android:layout_width="47dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="?attr/actionBarItemBackground"
+                android:contentDescription="@string/back"
+                app:layout_constraintBottom_toBottomOf="@+id/attachment_recycler_view"
+                app:srcCompat="@drawable/ic_arrow_down" />
 
         </LinearLayout>
 
-     </com.google.android.material.card.MaterialCardView>
+        <!-- Кнопки -->
+        <LinearLayout
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_x_small"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/favorites_button"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xxx_large"
+                android:layout_marginEnd="@dimen/margin_x_small"
+                app:icon="@drawable/ic_baseline_favorite_24"
+                app:iconSize="@dimen/margin_large" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/details_button"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
+                app:icon="@drawable/ic_baseline_zoom_in_24"
+                app:iconSize="@dimen/margin_large" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
