@@ -39,6 +39,7 @@ class RecipesViewModel(
     private fun handleRecipesByIngredients(recipesByIngredients: RecipesByIngredientsResponse?) {
         _recipes.value = recipesByIngredients?.map { recipeInfo ->
             RecipeModelForRecycler(
+                recipeInfo.id,
                 recipeInfo.imageUrl,
                 recipeInfo.title,
                 recipeInfo.dishSummary
