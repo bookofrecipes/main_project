@@ -100,8 +100,8 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         super.onViewCreated(view, savedInstanceState)
         initializeView(view)
 
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
+//        postponeEnterTransition()
+//        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     private fun initializeView(root: View) {
