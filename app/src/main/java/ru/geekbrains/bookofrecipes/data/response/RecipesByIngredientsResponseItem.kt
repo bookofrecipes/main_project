@@ -10,5 +10,7 @@ class RecipesByIngredientsResponseItem (
     @SerializedName("likes")
     val likes: Int?,
     @SerializedName("title")
-    val title: String?
-    )
+    val title: String?,
+    @SerializedName("summary")
+    val dishSummary: String
+)
