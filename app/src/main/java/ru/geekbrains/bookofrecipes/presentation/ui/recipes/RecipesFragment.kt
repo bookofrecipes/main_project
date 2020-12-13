@@ -1,6 +1,9 @@
 package ru.geekbrains.bookofrecipes.presentation.ui.recipes
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,16 +18,22 @@ import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
+import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragment
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
 import ru.geekbrains.bookofrecipes.service.Failure.ServerError
 import ru.geekbrains.bookofrecipes.service.extensions.observeData
 import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
 
+
+private const val TARGET_FRAGMENT_REQUEST_CODE = 1
+private const val EXTRA_GREETING_MESSAGE = "message"
+
 class RecipesFragment : Fragment() {
 
     private val recipesViewModel: RecipesViewModel by viewModel()
     private val recipesAdapter: RecipesAdapter = get()
+    private val searchDialogFragment: SearchDialogFragment = get()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,15 +42,38 @@ class RecipesFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-        observeData(recipesViewModel.recipes, ::handleRecipeList)
-        observeFailure(recipesViewModel.failure, ::handleFailure)
+        searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
+        root.search_fab.setOnClickListener {
+            parentFragmentManager.let {
+                searchDialogFragment.show(it, "SearchingDialogFragment")
+            }
+        }
 
         root.button.setOnClickListener {
             recipesViewModel.loadRandomRecipes()
         }
 
+        observeData(recipesViewModel.recipes, ::handleRecipeList)
+        observeFailure(recipesViewModel.failure, ::handleFailure)
         return root
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK) {
+            Log.e(
+                "RecipesFragment",
+                "resultCode = $requestCode doesn't equal to Activity.Result_OK"
+            )
+            return
+        }
+        if (requestCode == TARGET_FRAGMENT_REQUEST_CODE) {
+            data?.getStringExtra(EXTRA_GREETING_MESSAGE)?.let {
+                recipesViewModel.loadRecipesByIngredients(it)
+            }
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -28,6 +28,6 @@ class RecipesRepository(private val remoteDataSource: ApiHelper) : Repository {
         ingredients: String,
         quantityOfRecipes: Int
     ): Either<Failure, RecipesByIngredientsResponse?> {
-        TODO("Not yet implemented")
+        return remoteDataSource.getData(ingredients,quantityOfRecipes)
     }
 }
