@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class RecipesByIngredientsResponseItem (
     @SerializedName("id")
-    val id: Int?,
+    val id: Long?,
     @SerializedName("image")
     val imageUrl: String?,
     @SerializedName("likes")
