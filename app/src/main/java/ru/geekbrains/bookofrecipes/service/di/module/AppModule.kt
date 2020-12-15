@@ -4,6 +4,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.geekbrains.bookofrecipes.data.RecipesRepository
+import ru.geekbrains.bookofrecipes.domain.Repository
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRecipesByIngredients
 import ru.geekbrains.bookofrecipes.presentation.ui.recipes.RecipesViewModel
@@ -20,7 +21,7 @@ val repoModule = module {
     viewModel { RecipesViewModel(get(), get()) }
     single { GetRandomRecipes(get()) }
     single { GetRecipesByIngredients(get()) }
-    single { RecipesRepository(get()) }
+    single { RecipesRepository(get()) as Repository }
     single { SearchDialogFragment() }
 
 }
