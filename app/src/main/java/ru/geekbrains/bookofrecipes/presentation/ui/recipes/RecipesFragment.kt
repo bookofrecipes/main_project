@@ -43,7 +43,7 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
         val detailFragment = DetailsFragment()
         detailFragment.sharedElementEnterTransition = MaterialContainerTransform()
     }
@@ -63,7 +63,7 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-        searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
+
         root.search_fab.setOnClickListener {
             parentFragmentManager.let {
                 searchDialogFragment.show(it, "SearchingDialogFragment")
