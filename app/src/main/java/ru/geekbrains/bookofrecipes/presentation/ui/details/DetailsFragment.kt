@@ -9,14 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.use
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialContainerTransform
+import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.android.synthetic.main.detail_fragment.view.*
 import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import ru.geekbrains.bookofrecipes.service.extensions.loadFromUrl
+
+
+
 
 @ColorInt
 @SuppressLint("Recycle")
@@ -32,8 +37,12 @@ fun Context.themeColor(
 
 class DetailsFragment : Fragment() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host_fragment
@@ -56,6 +65,7 @@ class DetailsFragment : Fragment() {
 
         view.navigation_icon.setOnClickListener {
             findNavController().navigateUp()
+
         }
 
         val recipeData = arguments?.getSerializable("recipe") as RecipeModelForRecycler
