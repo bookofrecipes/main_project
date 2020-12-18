@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -30,7 +29,6 @@ import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
 import ru.geekbrains.bookofrecipes.service.Failure.ServerError
 import ru.geekbrains.bookofrecipes.service.extensions.observeData
 import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
-
 
 private const val TARGET_FRAGMENT_REQUEST_CODE = 1
 private const val EXTRA_GREETING_MESSAGE = "message"
@@ -62,7 +60,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
-
 
         root.search_fab.setOnClickListener {
             parentFragmentManager.let {
