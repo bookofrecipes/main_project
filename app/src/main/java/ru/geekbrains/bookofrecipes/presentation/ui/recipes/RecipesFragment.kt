@@ -70,6 +70,7 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
         observeData(recipesViewModel.recipes, ::handleRecipeList)
         observeFailure(recipesViewModel.failure, ::handleFailure)
+
         return root
     }
 
@@ -95,6 +96,8 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
+
+        recipesViewModel.recipes.value?.let { handleRecipeList(it) }
     }
 
     private fun initializeView(root: View) {
@@ -115,12 +118,10 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
     }
 
     private fun showFailure(message: String) {
-        val snackbar = Snackbar.make(
-            (activity as MainActivity).nav_host_fragment,
+        Snackbar.make(
+            (activity as MainActivity).place_for_snack,
             message,
             Snackbar.LENGTH_LONG
-        )
-        snackbar.setAction("Reload") { recipesViewModel.loadRandomRecipes() }
-        snackbar.show()
+        ).setAction("Reload") { recipesViewModel.lastRequestMade() }.show()
     }
 }
