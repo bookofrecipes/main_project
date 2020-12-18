@@ -13,7 +13,7 @@ import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragmen
 import ru.geekbrains.bookofrecipes.service.utils.NetworkAvailabilityHandler
 
 val appModule = module {
-    single { (listener: RecipesAdapter.RecipesAdapterListener) -> RecipesAdapter(listener) }
+    factory { (listener: RecipesAdapter.RecipesAdapterListener) -> RecipesAdapter(listener) }
     single { NetworkAvailabilityHandler(androidContext()) }
 }
 
@@ -21,7 +21,6 @@ val repoModule = module {
     viewModel { RecipesViewModel(get(), get()) }
     single { GetRandomRecipes(get()) }
     single { GetRecipesByIngredients(get()) }
-    single { RecipesRepository(get()) as Repository }
+    single<Repository> { RecipesRepository(get()) }
     single { SearchDialogFragment() }
-
 }

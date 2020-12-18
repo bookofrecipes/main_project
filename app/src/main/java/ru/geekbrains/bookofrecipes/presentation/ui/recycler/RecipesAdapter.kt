@@ -19,7 +19,6 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         RecipesHolder(listener, parent.inflate(R.layout.activity_recyclerview_item))
 
-
     override fun onBindViewHolder(holder: RecipesHolder, position: Int) =
         holder.bind(collection[position])
 
@@ -41,7 +40,6 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
 //            itemView.recipes_text.text = recipeView.summary
         }
     }
-
 
     interface RecipesAdapterListener {
         fun onRecipeClick(recipeView: View, recipeData: RecipeModelForRecycler)

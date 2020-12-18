@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
@@ -20,7 +19,6 @@ import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.geekbrains.bookofrecipes.R
-import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
@@ -43,8 +41,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
-        val detailFragment = DetailsFragment()
-        detailFragment.sharedElementEnterTransition = MaterialContainerTransform()
     }
 
     override fun onRecipeClick(recipeView: View, recipeData: RecipeModelForRecycler) {
