@@ -21,10 +21,10 @@ import ru.geekbrains.bookofrecipes.service.extensions.loadFromUrl
 @ColorInt
 @SuppressLint("Recycle")
 fun Context.themeColor(
-    @AttrRes themeAttrId: Int
+        @AttrRes themeAttrId: Int
 ): Int {
     return obtainStyledAttributes(
-        intArrayOf(themeAttrId)
+            intArrayOf(themeAttrId)
     ).use {
         it.getColor(0, Color.MAGENTA)
     }
@@ -34,7 +34,6 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host_fragment
             duration = resources.getInteger(R.integer.reply_motion_duration_small).toLong()
@@ -43,10 +42,9 @@ class DetailsFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.detail_fragment, container, false)
     }
@@ -56,14 +54,11 @@ class DetailsFragment : Fragment() {
 
         view.navigation_icon.setOnClickListener {
             findNavController().navigateUp()
+
         }
-
         val recipeData = arguments?.getSerializable("recipe") as RecipeModelForRecycler
-
         view.title_detail_dish.text = recipeData.title
         view.full_detail_dish.text = recipeData.summary
         view.detail_image_dish.loadFromUrl(recipeData.imageUrl)
     }
-
-
 }

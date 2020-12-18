@@ -30,7 +30,7 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
         fun bind(recipeView: RecipeModelForRecycler) {
             itemView.image_dish.loadFromUrl(recipeView.imageUrl)
             itemView.title_dish.text = recipeView.title
-            itemView.recycler_navigation_icon.setOnClickListener {
+            itemView.setOnClickListener {
                 listener.onRecipeClick(itemView, recipeView)
             }
 
