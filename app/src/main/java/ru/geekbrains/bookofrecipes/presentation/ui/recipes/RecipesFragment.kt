@@ -24,7 +24,9 @@ import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.data.local.entity.Ingredient
 import ru.geekbrains.bookofrecipes.data.local.entity.Recipe
 import ru.geekbrains.bookofrecipes.data.local.db.RecipeDao
+import ru.geekbrains.bookofrecipes.data.local.entity.Step
 import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeIngredientCrossRef
+import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeStepCrossRef
 import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
@@ -55,149 +57,85 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         detailFragment.sharedElementEnterTransition = MaterialContainerTransform()
 
 ///////////////////////////////////////////
-//        val recipes = listOf(
-//            Recipe(
-//                1,
-//                "www.pic1.com",
-//                13,
-//                "cool hot spicy",
-//                "pasta"
-//            ),
-//            Recipe(
-//                2,
-//                "www.pic2.com",
-//                12,
-//                "cold",
-//                "ice cream"
-//            ),
-//            Recipe(
-//                3,
-//                "www.pic3.com",
-//                4,
-//                "warm",
-//                "soup"
-//            ),
-//            Recipe(
-//                4,
-//                "www.pic4.com",
-//                46,
-//                "spicy",
-//                "roll"
-//            ),
-//            Recipe(
-//                5,
-//                "www.pic5.com",
-//                8,
-//                "black",
-//                "pizza"
-//            ),
-//            Recipe(
-//                6,
-//                "www.pic6.com",
-//                43,
-//                "white",
-//                "barbecue"
-//            ),
-//            Recipe(
-//                7,
-//                "www.pic7.com",
-//                77,
-//                "liquid",
-//                "brad"
-//            )
-//        )
-//        val ingredients = listOf(
-//            Ingredient(
-//                1,
-//                "photo1",
-//                "tomato",
-//                "red"
-//            ),
-//            Ingredient(
-//                2,
-//                "photo2",
-//                "mushroom",
-//                "white"
-//            ),
-//            Ingredient(
-//                3,
-//                "photo3",
-//                "rice",
-//                "japanese"
-//            ),
-//            Ingredient(
-//                4,
-//                "photo4",
-//                "water",
-//                "clean"
-//            ),
-//            Ingredient(
-//                5,
-//                "photo5",
-//                "juice",
-//                "orange juice"
-//            ),
-//            Ingredient(
-//                6,
-//                "photo6",
-//                "apple",
-//                "winter"
-//            )
-//        )
-//
-//        val recipeIngredientsRelations = listOf(
-//            RecipeIngredientCrossRef(
-//                1,
-//                3
-//            ),
-//            RecipeIngredientCrossRef(
-//                1,
-//                4
-//            ),
-//            RecipeIngredientCrossRef(
-//                1,
-//                6
-//            ),
-//            RecipeIngredientCrossRef(
-//                2,
-//                1
-//            ),
-//            RecipeIngredientCrossRef(
-//                3,
-//                2
-//            ),
-//            RecipeIngredientCrossRef(
-//                3,
-//                4
-//            ),
-//            RecipeIngredientCrossRef(
-//                4,
-//                2
-//            ),
-//            RecipeIngredientCrossRef(
-//                5,
-//                7
-//            ),
-//            RecipeIngredientCrossRef(
-//                6,
-//                7
-//            ),
-//            RecipeIngredientCrossRef(
-//                7,
-//                2
-//            ),
-//            RecipeIngredientCrossRef(
-//                7,
-//                3
-//            )
-//        )
-//        lifecycleScope.launch {
-//            recipes.forEach { dao.insertRecipe(it) }
-//            ingredients.forEach { dao.insertIngredient(it) }
-//            recipeIngredientsRelations.forEach { dao.insertRecipeIngredientCrossRef(it) }
-//
-//            Log.e("DataBase TESTING", "${dao.getIngredientsOfRecipe(7)}")
-//        }
+        val recipes = listOf(
+            Recipe(
+                1,
+                "www.pic1.com",
+                13,
+                "cool hot spicy",
+                "pasta",
+                true,
+                2.0,
+                "wowInstr",
+                true,
+                "credits"
+            )
+        )
+        val ingredients = listOf(
+            Ingredient(
+                1,
+                "photo1",
+                "tomato",
+                "red"
+            ),
+            Ingredient(
+                2,
+                "photo2",
+                "mushroom",
+                "white"
+            ),
+            Ingredient(
+                3,
+                "photo3",
+                "rice",
+                "japanese"
+            ),
+            Ingredient(
+                4,
+                "photo4",
+                "water",
+                "clean"
+            )
+        )
+
+        val recipeIngredientsRelations = listOf(
+            RecipeIngredientCrossRef(
+                1,
+                3
+            ),
+            RecipeIngredientCrossRef(
+                1,
+                4
+            ),
+            RecipeIngredientCrossRef(
+                1,
+                1
+            ),
+            RecipeIngredientCrossRef(
+                1,
+                2
+            )
+        )
+
+        val steps = listOf(
+            Step(1, "one",),
+            Step(2,"two")
+        )
+        val recipeStepsRelations = listOf(
+            RecipeStepCrossRef(1,1),
+            RecipeStepCrossRef(1,2)
+        )
+
+        lifecycleScope.launch {
+            recipes.forEach { dao.insertRecipe(it) }
+            ingredients.forEach { dao.insertIngredient(it) }
+            recipeIngredientsRelations.forEach { dao.insertRecipeIngredientCrossRef(it) }
+            steps.forEach { dao.insertStep(it) }
+            recipeStepsRelations.forEach { dao.insertRecipeStepCrossRef(it) }
+
+            Log.e("DataBase TESTING", "ingr   ${dao.getIngredientsOfRecipe(1)}")
+            Log.e("DataBase TESTING", "sxteps   ${dao.getStepsOfRecipe(1)}")
+        }
 //////////////////////////////////////////////////////
 
 
