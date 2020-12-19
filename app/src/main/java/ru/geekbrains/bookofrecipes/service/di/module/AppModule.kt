@@ -1,9 +1,12 @@
 package ru.geekbrains.bookofrecipes.service.di.module
 
+import android.content.Context
+import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.geekbrains.bookofrecipes.data.RecipesRepository
+import ru.geekbrains.bookofrecipes.data.local.RecipeDatabase
 import ru.geekbrains.bookofrecipes.domain.Repository
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRecipesByIngredients
@@ -25,3 +28,17 @@ val repoModule = module {
     single { SearchDialogFragment() }
 
 }
+
+val databaseModule = module {
+    single { provideDB(androidContext()) }
+    single { get<RecipeDatabase>().recipeDao() }
+}
+
+internal fun provideDB(_context: Context) =
+    Room.databaseBuilder(
+    _context,
+    RecipeDatabase::class.java,
+    "recipe_db"
+)
+    .fallbackToDestructiveMigration()
+.build()

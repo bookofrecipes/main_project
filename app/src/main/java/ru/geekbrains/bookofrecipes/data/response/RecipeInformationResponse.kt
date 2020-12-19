@@ -9,8 +9,8 @@ data class RecipeInformationResponse (
         val instruction: List<Instruction>?,
         @SerializedName("dairyFree")
         val dairyFree: Boolean?,
-        @SerializedName("extendedIngredients")
-        val ingredientList: List<Ingredient>?,
+//        @SerializedName("extendedIngredients")
+//        val ingredientList: List<Ingredient>?,
         @SerializedName("glutenFree")
         val glutenFree: Boolean?,
         @SerializedName("healthScore")
@@ -37,16 +37,16 @@ data class RecipeInformationResponse (
         val nutrition: Nutrition?
     )
 
-    data class Ingredient(
-        @SerializedName("id")
-        val ingredientId: Long,
-        @SerializedName("image")
-        val ingredientImageUrl: String?,
-        @SerializedName("name")
-        val ingredientName: String?,
-        @SerializedName("original")
-        val description: String?
-    )
+//    data class Ingredient(
+//        @SerializedName("id")
+//        val ingredientId: Long,
+//        @SerializedName("image")
+//        val ingredientImageUrl: String?,
+//        @SerializedName("name")
+//        val ingredientName: String?,
+//        @SerializedName("original")
+//        val description: String?
+//    )
 
     data class Instruction(
         @SerializedName("steps")
