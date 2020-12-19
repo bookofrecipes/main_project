@@ -1,7 +1,6 @@
 package ru.geekbrains.bookofrecipes.service.di.module
 
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.geekbrains.bookofrecipes.data.RecipesRepository
 import ru.geekbrains.bookofrecipes.domain.Repository

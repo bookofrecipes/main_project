@@ -16,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
@@ -34,7 +33,7 @@ private const val EXTRA_GREETING_MESSAGE = "message"
 
 class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
-    private val recipesViewModel: RecipesViewModel by viewModel()
+    private val recipesViewModel: RecipesViewModel by inject()
     private val recipesAdapter: RecipesAdapter by inject { parametersOf(this) }
     private val searchDialogFragment: SearchDialogFragment by inject()
 
