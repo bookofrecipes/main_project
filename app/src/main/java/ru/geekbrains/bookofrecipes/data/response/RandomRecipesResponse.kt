@@ -6,3 +6,8 @@ class RandomRecipesResponse (
     @SerializedName("recipes")
     val recipes: List<RecipeInformationResponse>
 )
+{
+    companion object {
+        val empty = RandomRecipesResponse(emptyList())
+    }
+}

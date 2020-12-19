@@ -16,4 +16,6 @@ interface DataSource {
         ingredients: String,
         quantityOfRecipes: Int
     ): Either<Failure, RecipesByIngredientsResponse?>
+
+    suspend fun getBulkRecipeInfo(ids: String): Either<Failure, List<RecipeInformationResponse>>
 }

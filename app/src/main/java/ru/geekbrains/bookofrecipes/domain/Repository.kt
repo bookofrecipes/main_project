@@ -19,4 +19,6 @@ interface Repository {
         ingredients: String,
         quantityOfRecipes: Int
     ): Either<Failure, RecipesByIngredientsResponse?>
+
+    suspend fun getRecipeInformationBulk(ids: String): Either<Failure, List<RecipeInformationResponse>>
 }

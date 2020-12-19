@@ -2,40 +2,49 @@ package ru.geekbrains.bookofrecipes.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class RecipeInformationResponse (
-        @SerializedName("aggregateLikes")
-        val likesCount: Int?,
-        @SerializedName("analyzedInstructions")
-        val instruction: List<Instruction>?,
-        @SerializedName("dairyFree")
-        val dairyFree: Boolean?,
-        @SerializedName("extendedIngredients")
-        val ingredientList: List<Ingredient>?,
-        @SerializedName("glutenFree")
-        val glutenFree: Boolean?,
-        @SerializedName("healthScore")
-        val healthScore: Double,
-        @SerializedName("id")
-        val dishId: Long?,
-        @SerializedName("image")
-        val dishImageUrl: String?,
-        @SerializedName("instructions")
-        val instructions: String?,
-        @SerializedName("readyInMinutes")
-        val readyInMinutes: Int?,
-        @SerializedName("spoonacularScore")
-        val spoonacularScore: Double,
-        @SerializedName("summary")
-        val dishSummary: String,
-        @SerializedName("title")
-        val dishName: String?,
-        @SerializedName("vegetarian")
-        val vegetarian: Boolean?,
-        @SerializedName("creditsText")
-        val creditText: String?,
-        @SerializedName("nutrition")
-        val nutrition: Nutrition?
-    )
+data class RecipeInformationResponse(
+    @SerializedName("aggregateLikes")
+    val likesCount: Int?,
+    @SerializedName("analyzedInstructions")
+    val instruction: List<Instruction>?,
+    @SerializedName("dairyFree")
+    val dairyFree: Boolean?,
+    @SerializedName("extendedIngredients")
+    val ingredientList: List<Ingredient>?,
+    @SerializedName("glutenFree")
+    val glutenFree: Boolean?,
+    @SerializedName("healthScore")
+    val healthScore: Double,
+    @SerializedName("id")
+    val dishId: Long?,
+    @SerializedName("image")
+    val dishImageUrl: String?,
+    @SerializedName("instructions")
+    val instructions: String?,
+    @SerializedName("readyInMinutes")
+    val readyInMinutes: Int?,
+    @SerializedName("spoonacularScore")
+    val spoonacularScore: Double,
+    @SerializedName("summary")
+    val dishSummary: String,
+    @SerializedName("title")
+    val dishName: String?,
+    @SerializedName("vegetarian")
+    val vegetarian: Boolean?,
+    @SerializedName("creditsText")
+    val creditText: String?,
+    @SerializedName("nutrition")
+    val nutrition: Nutrition?
+) {
+    companion object {
+        val empty = RecipeInformationResponse(
+            0, emptyList(), false, emptyList(), false,
+            0.0, 0, "", "", 0,
+            0.0, "", "", false,
+            "", Nutrition.empty
+        )
+    }
+}
 
     data class Ingredient(
         @SerializedName("id")
@@ -60,10 +69,14 @@ data class RecipeInformationResponse (
         val step: String
     )
 
-    data class Nutrition(
-        @SerializedName("nutrients")
-        val nutrients: List<Nutrient>
-    )
+data class Nutrition(
+    @SerializedName("nutrients")
+    val nutrients: List<Nutrient>
+) {
+    companion object {
+        val empty = Nutrition(emptyList())
+    }
+}
 
     data class Nutrient(
         @SerializedName("amount")

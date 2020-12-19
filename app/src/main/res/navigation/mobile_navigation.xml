@@ -24,7 +24,7 @@
         tools:layout="@layout/detail_fragment">
         <argument
             android:name="recipe"
-            app:argType="ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler" />
+            app:argType="ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation" />
     </fragment>
 
     <fragment
