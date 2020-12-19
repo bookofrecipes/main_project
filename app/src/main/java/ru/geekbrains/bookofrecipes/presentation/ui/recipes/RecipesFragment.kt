@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,14 +21,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.geekbrains.bookofrecipes.R
-import ru.geekbrains.bookofrecipes.data.local.entity.Ingredient
-import ru.geekbrains.bookofrecipes.data.local.entity.Recipe
 import ru.geekbrains.bookofrecipes.data.local.db.RecipeDao
-import ru.geekbrains.bookofrecipes.data.local.entity.Nutrient
-import ru.geekbrains.bookofrecipes.data.local.entity.Step
-import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeIngredientCrossRef
-import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeNutrientCrossRef
-import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeStepCrossRef
 import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
@@ -40,6 +32,7 @@ import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
 import ru.geekbrains.bookofrecipes.service.Failure.ServerError
 import ru.geekbrains.bookofrecipes.service.extensions.observeData
 import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
+
 
 private const val TARGET_FRAGMENT_REQUEST_CODE = 1
 private const val EXTRA_GREETING_MESSAGE = "message"
@@ -206,6 +199,7 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
             }
         }
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
