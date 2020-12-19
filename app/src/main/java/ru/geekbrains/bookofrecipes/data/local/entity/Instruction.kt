@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-
 data class Instruction(
     @SerializedName("steps")
     val stepList: List<Step>

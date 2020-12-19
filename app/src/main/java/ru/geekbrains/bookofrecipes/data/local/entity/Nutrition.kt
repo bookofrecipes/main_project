@@ -17,7 +17,7 @@ data class Nutrient(
     val percentOfDailyNeeds: Double?,
     @SerializedName("title")
     @PrimaryKey(autoGenerate = false)
-    val title: String?,
+    val title: String,
     @SerializedName("unit")
     val unit: String?
 )

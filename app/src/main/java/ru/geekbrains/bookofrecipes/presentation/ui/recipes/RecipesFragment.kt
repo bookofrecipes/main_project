@@ -25,8 +25,10 @@ import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.data.local.entity.Ingredient
 import ru.geekbrains.bookofrecipes.data.local.entity.Recipe
 import ru.geekbrains.bookofrecipes.data.local.db.RecipeDao
+import ru.geekbrains.bookofrecipes.data.local.entity.Nutrient
 import ru.geekbrains.bookofrecipes.data.local.entity.Step
 import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeIngredientCrossRef
+import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeNutrientCrossRef
 import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeStepCrossRef
 import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
@@ -125,15 +127,31 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
             RecipeStepCrossRef(1,2)
         )
 
+        val nutritions = listOf(
+            Nutrient(1.1,20.2,"fat","cooooo"),
+                    Nutrient(1.2,50.2,"ugl","ssss"),
+        Nutrient(1.5,23.2,"water","dsf")
+        )
+
+        val recipeNutrientRelations = listOf(
+            RecipeNutrientCrossRef(1,"fat"),
+            RecipeNutrientCrossRef(1,"water")
+        )
+
         lifecycleScope.launch {
             recipes.forEach { dao.insertRecipe(it) }
+
             ingredients.forEach { dao.insertIngredient(it) }
             recipeIngredientsRelations.forEach { dao.insertRecipeIngredientCrossRef(it) }
+
             steps.forEach { dao.insertStep(it) }
             recipeStepsRelations.forEach { dao.insertRecipeStepCrossRef(it) }
 
-            Log.e("DataBase TESTING", "ingr   ${dao.getIngredientsOfRecipe(1)}")
-            Log.e("DataBase TESTING", "sxteps   ${dao.getStepsOfRecipe(1)}")
+            nutritions.forEach { dao.insertNutrient(it) }
+            recipeNutrientRelations.forEach { dao.insertRecipeNutrientCrossRef(it) }
+
+            Log.e("DataBase TESTING", "ingredients   ${dao.getIngredientsOfRecipe(1)}")
+            Log.e("DataBase TESTING", "nutritions   ${dao.getNutrientsOfRecipe(1)}")
         }
 //////////////////////////////////////////////////////
 
