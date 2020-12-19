@@ -1,7 +1,9 @@
 package ru.geekbrains.bookofrecipes.presentation.ui.recipes
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ru.geekbrains.bookofrecipes.data.local.entity.Ingredient
 import ru.geekbrains.bookofrecipes.data.response.RandomRecipesResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
@@ -12,6 +14,7 @@ import ru.geekbrains.bookofrecipes.presentation.ui.BaseViewModel
 class RecipesViewModel(
     private val getRandomRecipes: GetRandomRecipes,
     private val getRecipesByIngredients: GetRecipesByIngredients
+
 ) : BaseViewModel() {
 
     private val _recipes = MutableLiveData<List<RecipeModelForRecycler>>()
@@ -45,5 +48,6 @@ class RecipesViewModel(
                 recipeInfo.dishSummary
             )
         }
+
     }
 }
