@@ -46,16 +46,16 @@ data class RecipeInformationResponse(
     }
 }
 
-    data class Ingredient(
-        @SerializedName("id")
-        val ingredientId: Long,
-        @SerializedName("image")
-        val ingredientImageUrl: String?,
-        @SerializedName("name")
-        val ingredientName: String?,
-        @SerializedName("original")
-        val description: String?
-    )
+//    data class Ingredient(
+//        @SerializedName("id")
+//        val ingredientId: Long,
+//        @SerializedName("image")
+//        val ingredientImageUrl: String?,
+//        @SerializedName("name")
+//        val ingredientName: String?,
+//        @SerializedName("original")
+//        val description: String?
+//    )
 
     data class Instruction(
         @SerializedName("steps")
