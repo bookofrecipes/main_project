@@ -1,6 +1,9 @@
 package ru.geekbrains.bookofrecipes.data.response
 
 import com.google.gson.annotations.SerializedName
+import ru.geekbrains.bookofrecipes.data.local.entity.Ingredient
+import ru.geekbrains.bookofrecipes.data.local.entity.Instruction
+import ru.geekbrains.bookofrecipes.data.local.entity.Nutrition
 
 data class RecipeInformationResponse(
     @SerializedName("aggregateLikes")
@@ -46,45 +49,6 @@ data class RecipeInformationResponse(
     }
 }
 
-//    data class Ingredient(
-//        @SerializedName("id")
-//        val ingredientId: Long,
-//        @SerializedName("image")
-//        val ingredientImageUrl: String?,
-//        @SerializedName("name")
-//        val ingredientName: String?,
-//        @SerializedName("original")
-//        val description: String?
-//    )
 
-    data class Instruction(
-        @SerializedName("steps")
-        val stepList: List<Step>
-    )
 
-    data class Step(
-        @SerializedName("number")
-        val number: Int,
-        @SerializedName("step")
-        val step: String
-    )
 
-data class Nutrition(
-    @SerializedName("nutrients")
-    val nutrients: List<Nutrient>
-) {
-    companion object {
-        val empty = Nutrition(emptyList())
-    }
-}
-
-    data class Nutrient(
-        @SerializedName("amount")
-        val amount: Double?,
-        @SerializedName("percentOfDailyNeeds")
-        val percentOfDailyNeeds: Double?,
-        @SerializedName("title")
-        val title: String?,
-        @SerializedName("unit")
-        val unit: String?
-    )
