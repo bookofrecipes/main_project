@@ -1,8 +1,6 @@
 package ru.geekbrains.bookofrecipes.data.local.entity
 
 import androidx.room.*
-import com.google.gson.annotations.SerializedName
-
 
 @Entity
 data class Recipe(

@@ -5,7 +5,7 @@ import ru.geekbrains.bookofrecipes.data.local.entity.Ingredient
 import ru.geekbrains.bookofrecipes.data.local.entity.Instruction
 import ru.geekbrains.bookofrecipes.data.local.entity.Nutrition
 
-data class RecipeInformationResponse (
+data class RecipeInformationResponse(
     @SerializedName("aggregateLikes") val likesCount: Int?,
     @SerializedName("analyzedInstructions") val instruction: List<Instruction>?,
     @SerializedName("dairyFree") val dairyFree: Boolean?,
@@ -22,7 +22,7 @@ data class RecipeInformationResponse (
     @SerializedName("vegetarian") val vegetarian: Boolean?,
     @SerializedName("creditsText") val creditText: String?,
     @SerializedName("nutrition") val nutrition: Nutrition?
-    )
+)
 
 
 
