@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,18 +16,10 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.geekbrains.bookofrecipes.R
-import ru.geekbrains.bookofrecipes.data.local.entity.Ingredient
-import ru.geekbrains.bookofrecipes.data.local.entity.Recipe
 import ru.geekbrains.bookofrecipes.data.local.db.RecipeDao
-import ru.geekbrains.bookofrecipes.data.local.entity.Nutrient
-import ru.geekbrains.bookofrecipes.data.local.entity.Step
-import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeIngredientCrossRef
-import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeNutrientCrossRef
-import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeStepCrossRef
 import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
@@ -40,13 +31,10 @@ import ru.geekbrains.bookofrecipes.service.Failure.ServerError
 import ru.geekbrains.bookofrecipes.service.extensions.observeData
 import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
 
-
 private const val TARGET_FRAGMENT_REQUEST_CODE = 1
 private const val EXTRA_GREETING_MESSAGE = "message"
 
 class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
-
-    val dao : RecipeDao = get()
 
     private val recipesViewModel: RecipesViewModel by viewModel()
     private val recipesAdapter: RecipesAdapter = RecipesAdapter(this)
@@ -57,108 +45,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
         val detailFragment = DetailsFragment()
         detailFragment.sharedElementEnterTransition = MaterialContainerTransform()
-
-///////////////////////////////////////////
-        val recipes = listOf(
-            Recipe(
-                1,
-                "www.pic1.com",
-                13,
-                "cool hot spicy",
-                "pasta",
-                true,
-                2.0,
-                "wowInstr",
-                true,
-                "credits"
-            )
-        )
-        val ingredients = listOf(
-            Ingredient(
-                1,
-                "photo1",
-                "tomato",
-                "red"
-            ),
-            Ingredient(
-                2,
-                "photo2",
-                "mushroom",
-                "white"
-            ),
-            Ingredient(
-                3,
-                "photo3",
-                "rice",
-                "japanese"
-            ),
-            Ingredient(
-                4,
-                "photo4",
-                "water",
-                "clean"
-            )
-        )
-
-        val recipeIngredientsRelations = listOf(
-            RecipeIngredientCrossRef(
-                1,
-                3
-            ),
-            RecipeIngredientCrossRef(
-                1,
-                4
-            ),
-            RecipeIngredientCrossRef(
-                1,
-                1
-            ),
-            RecipeIngredientCrossRef(
-                1,
-                2
-            )
-        )
-
-        val steps = listOf(
-            Step(1, "one",),
-            Step(2,"two")
-        )
-        val recipeStepsRelations = listOf(
-            RecipeStepCrossRef(1,1),
-            RecipeStepCrossRef(1,2)
-        )
-
-        val nutritions = listOf(
-            Nutrient(1.1,20.2,"fat","cooooo"),
-                    Nutrient(1.2,50.2,"ugl","ssss"),
-        Nutrient(1.5,23.2,"water","dsf")
-        )
-
-        val recipeNutrientRelations = listOf(
-            RecipeNutrientCrossRef(1,"fat"),
-            RecipeNutrientCrossRef(1,"water")
-        )
-
-        lifecycleScope.launch {
-            recipes.forEach { dao.insertRecipe(it) }
-
-            ingredients.forEach { dao.insertIngredient(it) }
-            recipeIngredientsRelations.forEach { dao.insertRecipeIngredientCrossRef(it) }
-
-            steps.forEach { dao.insertStep(it) }
-            recipeStepsRelations.forEach { dao.insertRecipeStepCrossRef(it) }
-
-            nutritions.forEach { dao.insertNutrient(it) }
-            recipeNutrientRelations.forEach { dao.insertRecipeNutrientCrossRef(it) }
-
-            Log.e("DataBase TESTING", "ingredients   ${dao.getIngredientsOfRecipe(1)}")
-            Log.e("DataBase TESTING", "nutritions   ${dao.getNutrientsOfRecipe(1)}")
-        }
-//////////////////////////////////////////////////////
-
-
-
-
     }
 
     override fun onRecipeClick(recipeView: View, recipeData: RecipeModelForRecycler) {
@@ -176,17 +62,14 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-
         root.search_fab.setOnClickListener {
             parentFragmentManager.let {
                 searchDialogFragment.show(it, "SearchingDialogFragment")
             }
         }
-
         root.button.setOnClickListener {
             recipesViewModel.loadRandomRecipes()
         }
-
         observeData(recipesViewModel.recipes, ::handleRecipeList)
         observeFailure(recipesViewModel.failure, ::handleFailure)
         return root
@@ -207,7 +90,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
             }
         }
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
