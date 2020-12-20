@@ -56,11 +56,11 @@ interface RecipeDao {
     @Query("DELETE FROM recipe WHERE recipeId = :id")
     suspend fun deleteRecipe(id : Long)
 
-    @Query("DELETE FROM nutrient WHERE title = :title")
-    suspend fun deleteNutrient(title : String)
+    @Query("DELETE FROM nutrient WHERE nutrientId = :id")
+    suspend fun deleteNutrient(id : Long)
 
-    @Query("DELETE FROM step WHERE number = :number")
-    suspend fun deleteStep(number : Int)
+    @Query("DELETE FROM step WHERE stepId = :id")
+    suspend fun deleteStep(id: Long)
 
     //// get relations
     @Transaction

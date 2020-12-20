@@ -11,9 +11,8 @@ data class Instruction(
 
 @Entity
 data class Step(
-    @PrimaryKey(autoGenerate = false)
-    @SerializedName("number")
+    @PrimaryKey(autoGenerate = true)
+    val stepId : Long,
     val number: Int,
-    @SerializedName("step")
     val step: String
 )

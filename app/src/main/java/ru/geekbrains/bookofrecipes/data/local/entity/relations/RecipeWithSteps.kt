@@ -11,7 +11,7 @@ data class RecipeWithSteps(
     @Embedded val recipe: Recipe,
     @Relation(
         parentColumn = "recipeId",
-        entityColumn = "number",
+        entityColumn = "stepId",
         associateBy = Junction(RecipeStepCrossRef::class)
     )
     val steps : List<Step>

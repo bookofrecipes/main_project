@@ -11,7 +11,7 @@ data class RecipeWithNutrients(
     @Embedded val recipe: Recipe,
     @Relation(
         parentColumn = "recipeId",
-        entityColumn = "title",
+        entityColumn = "nutrientId",
         associateBy = Junction(RecipeNutrientCrossRef::class)
     )
     val nutrients : List<Nutrient>
