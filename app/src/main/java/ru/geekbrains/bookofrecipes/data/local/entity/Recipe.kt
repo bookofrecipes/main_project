@@ -14,7 +14,8 @@ data class Recipe(
     val healthScore: Double?,
     val instructions: String?,
     val vegetarian: Boolean?,
-    val creditText: String?
+    val creditText: String?,
+    val likesCount: Int?
 )
 
 
