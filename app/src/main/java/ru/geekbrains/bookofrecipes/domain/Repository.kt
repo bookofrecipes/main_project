@@ -4,6 +4,7 @@ import ru.geekbrains.bookofrecipes.data.DataSourceType
 import ru.geekbrains.bookofrecipes.data.response.RandomRecipesResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipeInformationResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
+import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.functional.Either
 
@@ -21,4 +22,6 @@ interface Repository {
     ): Either<Failure, RecipesByIngredientsResponse?>
 
     suspend fun getRecipeInformationBulk(ids: String): Either<Failure, List<RecipeInformationResponse>>
+
+    suspend fun saveFavoriteRecipe(recipe: RecipeInformation): Either<Failure, Long>
 }

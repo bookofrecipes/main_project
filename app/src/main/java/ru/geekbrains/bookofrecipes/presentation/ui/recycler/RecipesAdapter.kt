@@ -27,21 +27,26 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
 
     class RecipesHolder(private val listener: RecipesAdapterListener, itemView: View) :
         RecyclerView.ViewHolder(itemView) {
+
         fun bind(recipeView: RecipeInformation) {
             itemView.image_dish.loadFromUrl(recipeView.imageUrl)
             itemView.title_dish.text = recipeView.name
             itemView.setOnClickListener {
                 listener.onRecipeClick(itemView, recipeView)
             }
+            itemView.favorites_button.setOnClickListener {
+                listener.onFavouriteIconClick(recipeView)
+            }
 
-            val recipeCardItemTransitionName = itemView.resources.getString(R.string.recipe_card_transition_name, recipeView.id)
+            val recipeCardItemTransitionName =
+                itemView.resources.getString(R.string.recipe_card_transition_name, recipeView.id)
             itemView.transitionName = recipeCardItemTransitionName
-
-//            itemView.recipes_text.text = recipeView.summary
         }
     }
 
     interface RecipesAdapterListener {
         fun onRecipeClick(recipeView: View, recipeData: RecipeInformation)
+
+        fun onFavouriteIconClick(recipeData: RecipeInformation)
     }
 }

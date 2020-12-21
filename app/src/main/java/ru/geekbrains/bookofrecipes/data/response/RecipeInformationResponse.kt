@@ -16,7 +16,7 @@ data class RecipeInformationResponse(
         val glutenFree: Boolean?,
         val healthScore: Double,
         @SerializedName("id")
-        val dishId: Long?,
+        val dishId: Long,
         @SerializedName("image")
         val dishImageUrl: String?,
         val instructions: String?,

@@ -17,9 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
-import org.koin.android.ext.android.get
 import ru.geekbrains.bookofrecipes.R
-import ru.geekbrains.bookofrecipes.data.local.db.RecipeDao
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
@@ -43,14 +41,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
-    }
-
-    override fun onRecipeClick(recipeView: View, recipeData: RecipeInformation) {
-        val recipeCardDetailTransitionName = getString(R.string.recipe_card_detail_transition_name)
-        val extras = FragmentNavigatorExtras((recipeView to recipeCardDetailTransitionName))
-        val d = RecipesFragmentDirections.actionNavigationRecipesToNavigationDetail(recipeData)
-
-        findNavController().navigate(d, extras)
     }
 
     override fun onCreateView(
@@ -126,4 +116,15 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
             Snackbar.LENGTH_LONG
         ).setAction("Reload") { recipesViewModel.lastRequestMade() }.show()
     }
+
+    override fun onRecipeClick(recipeView: View, recipeData: RecipeInformation) {
+        val recipeCardDetailTransitionName = getString(R.string.recipe_card_detail_transition_name)
+        val extras = FragmentNavigatorExtras((recipeView to recipeCardDetailTransitionName))
+        val d = RecipesFragmentDirections.actionNavigationRecipesToNavigationDetail(recipeData)
+
+        findNavController().navigate(d, extras)
+    }
+
+    override fun onFavouriteIconClick(recipeData: RecipeInformation) =
+        recipesViewModel.addToFavourites(recipeData)
 }
