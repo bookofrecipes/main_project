@@ -36,7 +36,6 @@ private const val EXTRA_GREETING_MESSAGE = "message"
 
 class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
-    val dao : RecipeDao = get()
     private val recipesViewModel: RecipesViewModel by inject()
     private val recipesAdapter: RecipesAdapter by inject { parametersOf(this) }
     private val searchDialogFragment: SearchDialogFragment by inject()
@@ -67,10 +66,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
             }
         }
 
-        root.button.setOnClickListener {
-            recipesViewModel.loadRandomRecipes()
-        }
-
         observeData(recipesViewModel.recipesInfo, ::handleRecipeList)
         observeFailure(recipesViewModel.failure, ::handleFailure)
 
@@ -93,7 +88,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         }
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView(view)
@@ -101,7 +95,11 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
-        recipesViewModel.recipesInfo.value?.let { handleRecipeList(it) }
+        if (recipesViewModel.recipesInfo.value != null) {
+            recipesViewModel.recipesInfo.value?.let { handleRecipeList(it) }
+        } else {
+            recipesViewModel.loadRandomRecipes()
+        }
     }
 
     private fun initializeView(root: View) {
@@ -111,8 +109,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
     private fun handleRecipeList(list: List<RecipeInformation>) {
         recipesAdapter.collection = list
-
-
     }
 
     private fun handleFailure(failure: Failure?) {

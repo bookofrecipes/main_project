@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:text="@string/debug_button"
         android:elevation="@dimen/margin_small"
+        android:visibility="gone"
         app:layout_anchor="@id/activity_recyclerview"
         app:layout_anchorGravity="bottom|center"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
