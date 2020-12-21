@@ -22,11 +22,11 @@ abstract class BaseListFragment : Fragment(), RecipesAdapter.RecipesAdapterListe
 
     override fun onFavouriteIconClick(recipeData: RecipeInformation) {}
 
-    protected fun showFailure(message: String, action: View.OnClickListener) {
+    protected fun showFailure(message: String, action: () -> Unit) {
         Snackbar.make(
             (activity as MainActivity).place_for_snack,
             message,
             Snackbar.LENGTH_LONG
-        ).setAction("Reload") { action }.show()
+        ).setAction("Reload") { action() }.show()
     }
 }
