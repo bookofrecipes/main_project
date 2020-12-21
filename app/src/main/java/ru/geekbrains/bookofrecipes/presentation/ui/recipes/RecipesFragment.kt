@@ -8,19 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 import ru.geekbrains.bookofrecipes.R
-import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
-import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
+import ru.geekbrains.bookofrecipes.presentation.ui.BaseListFragment
 import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragment
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
@@ -32,10 +27,9 @@ import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
 private const val TARGET_FRAGMENT_REQUEST_CODE = 1
 private const val EXTRA_GREETING_MESSAGE = "message"
 
-class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
+class RecipesFragment : BaseListFragment() {
 
     private val recipesViewModel: RecipesViewModel by inject()
-    private val recipesAdapter: RecipesAdapter by inject { parametersOf(this) }
     private val searchDialogFragment: SearchDialogFragment by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,28 +88,17 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
     private fun initializeView(root: View) {
         root.activity_recyclerview.layoutManager = LinearLayoutManager(root.context)
-        root.activity_recyclerview.adapter = recipesAdapter
+        root.activity_recyclerview.adapter = listAdapter
     }
 
-    private fun handleRecipeList(list: List<RecipeInformation>) {
-        recipesAdapter.collection = list
-    }
-
-    private fun handleFailure(failure: Failure?) {
+    override fun handleFailure(failure: Failure?) {
         when (failure) {
-            NetworkConnection -> showFailure("No network connection on your device")
-            ServerError -> showFailure("Server error. Please, try again later.")
+            NetworkConnection -> showFailure("No network connection on your device") { recipesViewModel.lastRequestMade() }
+            ServerError -> showFailure("Server error. Please, try again later.") { recipesViewModel.lastRequestMade() }
             else -> return
         }
     }
 
-    private fun showFailure(message: String) {
-        Snackbar.make(
-            (activity as MainActivity).place_for_snack,
-            message,
-            Snackbar.LENGTH_LONG
-        ).setAction("Reload") { recipesViewModel.lastRequestMade() }.show()
-    }
 
     override fun onRecipeClick(recipeView: View, recipeData: RecipeInformation) {
         val recipeCardDetailTransitionName = getString(R.string.recipe_card_detail_transition_name)

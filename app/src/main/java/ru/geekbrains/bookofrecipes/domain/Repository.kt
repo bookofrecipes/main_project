@@ -24,4 +24,6 @@ interface Repository {
     suspend fun getRecipeInformationBulk(ids: String): Either<Failure, List<RecipeInformationResponse>>
 
     suspend fun saveFavoriteRecipe(recipe: RecipeInformation): Either<Failure, Long>
+
+    suspend fun getFavouriteRecipes(): Either<Failure, List<RecipeInformation>>
 }

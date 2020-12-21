@@ -6,11 +6,19 @@ import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeStepCrossRe
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.functional.Either
+import ru.geekbrains.bookofrecipes.service.functional.Either.Right
+import kotlin.collections.ArrayList
 
 class DbHelper(private val recipeDao: RecipeDao) : LocalDataSource {
 
-    override fun getRecipeList(): Either<Failure, RecipeInformation> {
-        TODO("Not yet implemented")
+    override suspend fun getRecipeList(): Either<Failure, List<RecipeInformation>> {
+        val favoritesRecipes: ArrayList<RecipeInformation> = ArrayList()
+
+        recipeDao.getAllRecipesWithIngredients().forEach { recipe ->
+            favoritesRecipes.add(RecipeInformation(recipe))
+        }
+
+        return Right(favoritesRecipes)
     }
 
     override suspend fun saveRecipe(recipe: RecipeInformation): Either<Failure, Long> {
@@ -29,6 +37,6 @@ class DbHelper(private val recipeDao: RecipeDao) : LocalDataSource {
                 recipeDao.insertRecipeStepCrossRef(RecipeStepCrossRef(recipe.id, stepId))
             }
         }
-        return Either.Right(id)
+        return Right(id)
     }
 }

@@ -41,4 +41,7 @@ class RecipesRepository(
 
     override suspend fun saveFavoriteRecipe(recipe: RecipeInformation): Either<Failure, Long> =
         localDataSource.saveRecipe(recipe)
+
+    override suspend fun getFavouriteRecipes(): Either<Failure, List<RecipeInformation>> =
+        localDataSource.getRecipeList()
 }

@@ -9,10 +9,8 @@ import ru.geekbrains.bookofrecipes.data.local.DbHelper
 import ru.geekbrains.bookofrecipes.data.local.LocalDataSource
 import ru.geekbrains.bookofrecipes.data.local.db.RecipeDatabase
 import ru.geekbrains.bookofrecipes.domain.Repository
-import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
-import ru.geekbrains.bookofrecipes.domain.use_cases.GetRecipeInformationBulk
-import ru.geekbrains.bookofrecipes.domain.use_cases.GetRecipesByIngredients
-import ru.geekbrains.bookofrecipes.domain.use_cases.SaveRecipeToFavorites
+import ru.geekbrains.bookofrecipes.domain.use_cases.*
+import ru.geekbrains.bookofrecipes.presentation.ui.favorites.FavoritesViewModel
 import ru.geekbrains.bookofrecipes.presentation.ui.recipes.RecipesViewModel
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
 import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragment
@@ -25,11 +23,14 @@ val appModule = module {
 
 val repoModule = module {
     single { RecipesViewModel(get(), get(), get(), get()) }
+    single { FavoritesViewModel(get()) }
 
     single { GetRandomRecipes(get()) }
     single { GetRecipesByIngredients(get()) }
     single { GetRecipeInformationBulk(get()) }
     single { SaveRecipeToFavorites(get()) }
+
+    single { GetFavoritesRecipes(get()) }
 
     single<Repository> { RecipesRepository(get(), get()) }
 

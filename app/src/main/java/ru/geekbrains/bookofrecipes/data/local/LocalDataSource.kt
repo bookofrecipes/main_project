@@ -5,7 +5,7 @@ import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.functional.Either
 
 interface LocalDataSource {
-    fun getRecipeList(): Either<Failure, RecipeInformation>
+    suspend fun getRecipeList(): Either<Failure, List<RecipeInformation>>
 
     suspend fun saveRecipe(recipe: RecipeInformation): Either<Failure, Long>
 }
