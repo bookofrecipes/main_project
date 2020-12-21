@@ -17,7 +17,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import org.koin.android.ext.android.get
 import ru.geekbrains.bookofrecipes.R
+import ru.geekbrains.bookofrecipes.data.local.db.RecipeDao
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
@@ -27,6 +29,7 @@ import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
 import ru.geekbrains.bookofrecipes.service.Failure.ServerError
 import ru.geekbrains.bookofrecipes.service.extensions.observeData
 import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
+
 
 private const val TARGET_FRAGMENT_REQUEST_CODE = 1
 private const val EXTRA_GREETING_MESSAGE = "message"
@@ -63,10 +66,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
             }
         }
 
-        root.button.setOnClickListener {
-            recipesViewModel.loadRandomRecipes()
-        }
-
         observeData(recipesViewModel.recipesInfo, ::handleRecipeList)
         observeFailure(recipesViewModel.failure, ::handleFailure)
 
@@ -96,7 +95,11 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
-        recipesViewModel.recipesInfo.value?.let { handleRecipeList(it) }
+        if (recipesViewModel.recipesInfo.value != null) {
+            recipesViewModel.recipesInfo.value?.let { handleRecipeList(it) }
+        } else {
+            recipesViewModel.loadRandomRecipes()
+        }
     }
 
     private fun initializeView(root: View) {
