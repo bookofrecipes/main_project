@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.detail_fragment.view.*
 import ru.geekbrains.bookofrecipes.R
-import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
+import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.service.extensions.loadFromUrl
 import ru.geekbrains.bookofrecipes.service.extensions.themeColor
 
@@ -41,9 +41,9 @@ class DetailsFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        val recipeData = arguments?.getSerializable("recipe") as RecipeModelForRecycler
+        val recipeData = arguments?.getSerializable("recipe") as RecipeInformation
 
-        view.title_detail_dish.text = recipeData.title
+        view.title_detail_dish.text = recipeData.name
         view.full_detail_dish.text = recipeData.summary
         view.detail_image_dish.loadFromUrl(recipeData.imageUrl)
     }

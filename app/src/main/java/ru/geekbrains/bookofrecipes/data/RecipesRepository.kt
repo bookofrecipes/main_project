@@ -30,4 +30,7 @@ class RecipesRepository(private val remoteDataSource: ApiHelper) : Repository {
     ): Either<Failure, RecipesByIngredientsResponse?> {
         return remoteDataSource.getData(ingredients,quantityOfRecipes)
     }
+
+    override suspend fun getRecipeInformationBulk(ids: String): Either<Failure, List<RecipeInformationResponse>> =
+        remoteDataSource.getBulkRecipeInfo(ids)
 }

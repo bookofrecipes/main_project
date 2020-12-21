@@ -19,7 +19,7 @@ import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
-import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
+import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
 import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragment
 import ru.geekbrains.bookofrecipes.service.Failure
@@ -42,7 +42,7 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
     }
 
-    override fun onRecipeClick(recipeView: View, recipeData: RecipeModelForRecycler) {
+    override fun onRecipeClick(recipeView: View, recipeData: RecipeInformation) {
         val recipeCardDetailTransitionName = getString(R.string.recipe_card_detail_transition_name)
         val extras = FragmentNavigatorExtras((recipeView to recipeCardDetailTransitionName))
         val d = RecipesFragmentDirections.actionNavigationRecipesToNavigationDetail(recipeData)
@@ -67,7 +67,7 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
             recipesViewModel.loadRandomRecipes()
         }
 
-        observeData(recipesViewModel.recipes, ::handleRecipeList)
+        observeData(recipesViewModel.recipesInfo, ::handleRecipeList)
         observeFailure(recipesViewModel.failure, ::handleFailure)
 
         return root
@@ -96,7 +96,7 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
-        recipesViewModel.recipes.value?.let { handleRecipeList(it) }
+        recipesViewModel.recipesInfo.value?.let { handleRecipeList(it) }
     }
 
     private fun initializeView(root: View) {
@@ -104,7 +104,7 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         root.activity_recyclerview.adapter = recipesAdapter
     }
 
-    private fun handleRecipeList(list: List<RecipeModelForRecycler>) {
+    private fun handleRecipeList(list: List<RecipeInformation>) {
         recipesAdapter.collection = list
     }
 

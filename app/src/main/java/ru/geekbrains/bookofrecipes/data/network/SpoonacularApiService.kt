@@ -25,4 +25,9 @@ interface SpoonacularApiService {
         @Query("ingredients") ingredients: String,
         @Query("number") resultLimit: Int
     ): Response<RecipesByIngredientsResponse>
+
+    @GET("informationBulk")
+    suspend fun getRecipesInformationBulk(
+        @Query("ids") ids: String
+    ): Response<List<RecipeInformationResponse>>
 }
