@@ -17,12 +17,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
-import org.koin.android.viewmodel.ext.android.viewModel
 import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.data.local.db.RecipeDao
-import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
@@ -47,110 +44,6 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
-        val detailFragment = DetailsFragment()
-        detailFragment.sharedElementEnterTransition = MaterialContainerTransform()
-
-///////////////////////////////////////////
-        val recipes = listOf(
-            Recipe(
-                1,
-                "www.pic1.com",
-                13,
-                "cool hot spicy",
-                "pasta",
-                true,
-                2.0,
-                "wowInstr",
-                true,
-                "credits"
-            )
-        )
-        val ingredients = listOf(
-            Ingredient(
-                1,
-                "photo1",
-                "tomato",
-                "red"
-            ),
-            Ingredient(
-                2,
-                "photo2",
-                "mushroom",
-                "white"
-            ),
-            Ingredient(
-                3,
-                "photo3",
-                "rice",
-                "japanese"
-            ),
-            Ingredient(
-                4,
-                "photo4",
-                "water",
-                "clean"
-            )
-        )
-
-        val recipeIngredientsRelations = listOf(
-            RecipeIngredientCrossRef(
-                1,
-                3
-            ),
-            RecipeIngredientCrossRef(
-                1,
-                4
-            ),
-            RecipeIngredientCrossRef(
-                1,
-                1
-            ),
-            RecipeIngredientCrossRef(
-                1,
-                2
-            )
-        )
-
-        val steps = listOf(
-            Step(1, "one",),
-            Step(2,"two")
-        )
-        val recipeStepsRelations = listOf(
-            RecipeStepCrossRef(1,1),
-            RecipeStepCrossRef(1,2)
-        )
-
-        val nutritions = listOf(
-            Nutrient(1.1,20.2,"fat","cooooo"),
-                    Nutrient(1.2,50.2,"ugl","ssss"),
-        Nutrient(1.5,23.2,"water","dsf")
-        )
-
-        val recipeNutrientRelations = listOf(
-            RecipeNutrientCrossRef(1,"fat"),
-            RecipeNutrientCrossRef(1,"water")
-        )
-
-        lifecycleScope.launch {
-            recipes.forEach { dao.insertRecipe(it) }
-
-            ingredients.forEach { dao.insertIngredient(it) }
-            recipeIngredientsRelations.forEach { dao.insertRecipeIngredientCrossRef(it) }
-
-            steps.forEach { dao.insertStep(it) }
-            recipeStepsRelations.forEach { dao.insertRecipeStepCrossRef(it) }
-
-            nutritions.forEach { dao.insertNutrient(it) }
-            recipeNutrientRelations.forEach { dao.insertRecipeNutrientCrossRef(it) }
-
-            Log.e("DataBase TESTING", "ingredients   ${dao.getIngredientsOfRecipe(1)}")
-            Log.e("DataBase TESTING", "nutritions   ${dao.getNutrientsOfRecipe(1)}")
-        }
-//////////////////////////////////////////////////////
-
-
-
-
     }
 
     override fun onRecipeClick(recipeView: View, recipeData: RecipeInformation) {

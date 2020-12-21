@@ -1,7 +1,7 @@
 package ru.geekbrains.bookofrecipes.presentation.models
 
-import ru.geekbrains.bookofrecipes.data.response.Ingredient
-import ru.geekbrains.bookofrecipes.data.response.Instruction
+import ru.geekbrains.bookofrecipes.data.local.entity.Ingredient
+import ru.geekbrains.bookofrecipes.data.local.entity.Instruction
 import java.io.Serializable
 
 data class RecipeInformation(
