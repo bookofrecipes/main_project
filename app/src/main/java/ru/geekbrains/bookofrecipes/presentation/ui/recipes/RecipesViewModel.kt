@@ -17,21 +17,27 @@ class RecipesViewModel(
     private val _recipes = MutableLiveData<List<RecipeModelForRecycler>>()
     val recipes: LiveData<List<RecipeModelForRecycler>> = _recipes
 
-    fun loadRandomRecipes() =
-        getRandomRecipes(10) { it.fold(::handleFailure, ::handleRandomRecipes) }
+    var lastRequestMade: () -> Unit = {}
 
-    fun loadRecipesByIngredients(ingredients: String) =
-        getRecipesByIngredients(GetRecipesByIngredients.IngredientsParams(ingredients, 10)) {
+    fun loadRandomRecipes() {
+        lastRequestMade = { loadRandomRecipes() }
+        return getRandomRecipes(10) { it.fold(::handleFailure, ::handleRandomRecipes) }
+    }
+
+    fun loadRecipesByIngredients(ingredients: String) {
+        lastRequestMade = { loadRecipesByIngredients(ingredients) }
+        return getRecipesByIngredients(GetRecipesByIngredients.IngredientsParams(ingredients, 10)) {
             it.fold(::handleFailure, ::handleRecipesByIngredients)
         }
+    }
 
     private fun handleRandomRecipes(randomRecipes: RandomRecipesResponse?) {
         _recipes.value = randomRecipes?.recipes?.map { recipeInfo ->
             RecipeModelForRecycler(
-                    recipeInfo.dishId,
-                    recipeInfo.dishImageUrl,
-                    recipeInfo.dishName,
-                    recipeInfo.dishSummary
+                recipeInfo.dishId,
+                recipeInfo.dishImageUrl,
+                recipeInfo.dishName,
+                recipeInfo.dishSummary
             )
         }
     }

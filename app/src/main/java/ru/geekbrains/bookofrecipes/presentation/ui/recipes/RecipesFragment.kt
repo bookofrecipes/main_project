@@ -12,14 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
-import org.koin.android.ext.android.get
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import ru.geekbrains.bookofrecipes.R
-import ru.geekbrains.bookofrecipes.presentation.ui.details.DetailsFragment
 import ru.geekbrains.bookofrecipes.presentation.MainActivity
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
@@ -35,15 +33,13 @@ private const val EXTRA_GREETING_MESSAGE = "message"
 
 class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
-    private val recipesViewModel: RecipesViewModel by viewModel()
-    private val recipesAdapter: RecipesAdapter = RecipesAdapter(this)
-    private val searchDialogFragment: SearchDialogFragment = get()
+    private val recipesViewModel: RecipesViewModel by inject()
+    private val recipesAdapter: RecipesAdapter by inject { parametersOf(this) }
+    private val searchDialogFragment: SearchDialogFragment by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchDialogFragment.setTargetFragment(this, TARGET_FRAGMENT_REQUEST_CODE)
-        val detailFragment = DetailsFragment()
-        detailFragment.sharedElementEnterTransition = MaterialContainerTransform()
     }
 
     override fun onRecipeClick(recipeView: View, recipeData: RecipeModelForRecycler) {
@@ -73,6 +69,7 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
 
         observeData(recipesViewModel.recipes, ::handleRecipeList)
         observeFailure(recipesViewModel.failure, ::handleFailure)
+
         return root
     }
 
@@ -92,13 +89,14 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
         }
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView(view)
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
+
+        recipesViewModel.recipes.value?.let { handleRecipeList(it) }
     }
 
     private fun initializeView(root: View) {
@@ -119,12 +117,10 @@ class RecipesFragment : Fragment(), RecipesAdapter.RecipesAdapterListener {
     }
 
     private fun showFailure(message: String) {
-        val snackbar = Snackbar.make(
-            (activity as MainActivity).nav_host_fragment,
+        Snackbar.make(
+            (activity as MainActivity).place_for_snack,
             message,
             Snackbar.LENGTH_LONG
-        )
-        snackbar.setAction("Reload") { recipesViewModel.loadRandomRecipes() }
-        snackbar.show()
+        ).setAction("Reload") { recipesViewModel.lastRequestMade() }.show()
     }
 }
