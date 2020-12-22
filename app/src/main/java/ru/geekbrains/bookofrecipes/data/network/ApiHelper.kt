@@ -15,7 +15,7 @@ import ru.geekbrains.bookofrecipes.service.utils.NetworkAvailabilityHandler
 class ApiHelper(
     private val apiService: SpoonacularApiService,
     private val networkHandler: NetworkAvailabilityHandler
-) : DataSource {
+) : RemoteDataSource {
 
     override suspend fun getData(quantityOfRandom: Int): Either<Failure, RandomRecipesResponse?> =
         requestData(RandomRecipesResponse.empty) { apiService.getRandomRecipes(quantityOfRandom) }

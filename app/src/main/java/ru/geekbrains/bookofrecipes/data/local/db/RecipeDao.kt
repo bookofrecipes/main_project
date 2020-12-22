@@ -16,25 +16,25 @@ import ru.geekbrains.bookofrecipes.data.local.entity.relations.RecipeWithSteps
 interface RecipeDao {
     //insert
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecipe(recipe: Recipe)
+    suspend fun insertRecipe(recipe: Recipe): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertIngredient(ingredient: Ingredient)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertStep(step: Step)
+    suspend fun insertStep(step: Step): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNutrient(nutrient: Nutrient)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecipeIngredientCrossRef (ingredientCrossRef: RecipeIngredientCrossRef)
+    suspend fun insertRecipeIngredientCrossRef(ingredientCrossRef: RecipeIngredientCrossRef)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecipeStepCrossRef (stepCrossRef: RecipeStepCrossRef)
+    suspend fun insertRecipeStepCrossRef(stepCrossRef: RecipeStepCrossRef)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecipeNutrientCrossRef (nutrientCrossRef: RecipeNutrientCrossRef)
+    suspend fun insertRecipeNutrientCrossRef(nutrientCrossRef: RecipeNutrientCrossRef)
 
     //clear
     @Query("DELETE FROM recipe")
@@ -51,13 +51,13 @@ interface RecipeDao {
 
     //delete by id
     @Query("DELETE FROM ingredient WHERE ingredientId = :id")
-    suspend fun deleteIngredient(id : Long)
+    suspend fun deleteIngredient(id: Long)
 
     @Query("DELETE FROM recipe WHERE recipeId = :id")
-    suspend fun deleteRecipe(id : Long)
+    suspend fun deleteRecipe(id: Long)
 
     @Query("DELETE FROM nutrient WHERE nutrientId = :id")
-    suspend fun deleteNutrient(id : Long)
+    suspend fun deleteNutrient(id: Long)
 
     @Query("DELETE FROM step WHERE stepId = :id")
     suspend fun deleteStep(id: Long)
@@ -74,4 +74,12 @@ interface RecipeDao {
     @Transaction
     @Query("SELECT * FROM recipe WHERE recipeId = :id")
     suspend fun getNutrientsOfRecipe(id: Long): List<RecipeWithNutrients>
+
+    @Transaction
+    @Query("SELECT * FROM recipe")
+    suspend fun getAllRecipesWithIngredients(): List<RecipeWithIngredients>
+
+    @Transaction
+    @Query("SELECT * FROM recipe")
+    suspend fun getAllRecipesWithSteps(): List<RecipeWithIngredients>
 }

@@ -10,11 +10,6 @@ data class Recipe(
     val readyInMinutes: Int?,
     val recipeSummary: String?,
     val recipeName: String?,
-    val glutenFree: Boolean?,
-    val healthScore: Double?,
-    val instructions: String?,
-    val vegetarian: Boolean?,
-    val creditText: String?,
     val likesCount: Int?
 )
 

@@ -3,20 +3,21 @@ package ru.geekbrains.bookofrecipes.presentation.ui.recipes
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.geekbrains.bookofrecipes.data.local.entity.Ingredient
 import ru.geekbrains.bookofrecipes.data.response.RandomRecipesResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipeInformationResponse
 import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRandomRecipes
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRecipeInformationBulk
 import ru.geekbrains.bookofrecipes.domain.use_cases.GetRecipesByIngredients
+import ru.geekbrains.bookofrecipes.domain.use_cases.SaveRecipeToFavorites
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.presentation.ui.BaseViewModel
 
 class RecipesViewModel(
     private val getRandomRecipes: GetRandomRecipes,
     private val getRecipesByIngredients: GetRecipesByIngredients,
-    private val getRecipesRecipeInformationBulk: GetRecipeInformationBulk
+    private val getRecipesRecipeInformationBulk: GetRecipeInformationBulk,
+    private val saveRecipeToFavorites: SaveRecipeToFavorites
 ) : BaseViewModel() {
 
     private val _recipesInfo = MutableLiveData<List<RecipeInformation>>()
@@ -36,7 +37,7 @@ class RecipesViewModel(
         }
     }
 
-    fun loadRecipeInfoByIds(ids: String) {
+    private fun loadRecipeInfoByIds(ids: String) {
         lastRequestMade = { loadRecipeInfoByIds(ids) }
         getRecipesRecipeInformationBulk(ids) {
             it.fold(::handleFailure, ::handleRecipeInformationBulk)
@@ -82,5 +83,12 @@ class RecipesViewModel(
                 recipesInfo.ingredientList
             )
         }
+    }
+
+    fun addToFavourites(recipe: RecipeInformation) =
+        saveRecipeToFavorites(recipe) { it.fold(::handleFailure, ::handleFavoritesAddition) }
+
+    private fun handleFavoritesAddition(id: Long) {
+        Log.d("Room id: ", id.toString())
     }
 }

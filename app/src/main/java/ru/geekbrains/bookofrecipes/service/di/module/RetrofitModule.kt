@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.geekbrains.bookofrecipes.BuildConfig
 import ru.geekbrains.bookofrecipes.data.network.ApiHelper
+import ru.geekbrains.bookofrecipes.data.network.RemoteDataSource
 import ru.geekbrains.bookofrecipes.data.network.SpoonacularApiService
 import java.util.concurrent.TimeUnit
 
@@ -60,5 +61,5 @@ val retrofitModule = module {
     single { provideOkHTTPClient() }
     single { provideRetrofit(get(), BASIC_URL) }
     single { provideApiService(get()) }
-    single { ApiHelper(get(), get()) }
+    single<RemoteDataSource> { ApiHelper(get(), get()) }
 }

@@ -6,7 +6,7 @@ import ru.geekbrains.bookofrecipes.data.response.RecipesByIngredientsResponse
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.functional.Either
 
-interface DataSource {
+interface RemoteDataSource {
 
     suspend fun getData(quantityOfRandom: Int): Either<Failure, RandomRecipesResponse?>
 
