@@ -7,6 +7,8 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:focusable="true"
+    android:clickable="true"
     android:layout_margin="@dimen/margin_x_small"
     app:cardCornerRadius="@dimen/margin_medium"
     app:cardElevation="@dimen/margin_small"
@@ -22,7 +24,7 @@
             android:id="@+id/image_dish"
             android:layout_width="match_parent"
             android:layout_height="194dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,32 +51,28 @@
 
         </LinearLayout>
 
-        <!-- Кнопки -->
         <LinearLayout
             android:layout_width="380dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_x_small"
             android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/favorites_button"
-                style="?attr/borderlessButtonStyle"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/favorites_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_xxx_large"
-                android:layout_marginEnd="@dimen/margin_x_small"
-                app:icon="@drawable/ic_baseline_favorite_24"
+                android:drawableStart="@drawable/ic_baseline_favorite_24"
                 app:iconSize="@dimen/margin_large" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/details_button"
-                style="?attr/borderlessButtonStyle"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_access_time_24"
                 android:layout_marginStart="@dimen/margin_medium"
                 app:icon="@drawable/ic_baseline_zoom_in_24"
                 app:iconSize="@dimen/margin_large" />
-
 
         </LinearLayout>
 

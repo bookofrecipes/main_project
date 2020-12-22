@@ -34,7 +34,7 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
             itemView.setOnClickListener {
                 listener.onRecipeClick(itemView, recipeView)
             }
-            itemView.favorites_button.setOnClickListener {
+            itemView.favorites_text.setOnClickListener {
                 listener.onFavouriteIconClick(recipeView)
             }
 

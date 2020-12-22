@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:src="@drawable/ic_baseline_search_24"
         app:layout_anchor="@id/activity_recyclerview"
         app:layout_anchorGravity="bottom|end"
