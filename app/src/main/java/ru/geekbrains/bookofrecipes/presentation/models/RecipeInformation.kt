@@ -14,7 +14,8 @@ data class RecipeInformation(
     val likes: Int?,
     val summary: String?,
     val instructions: List<Instruction>?,
-    val ingredients: List<Ingredient>?
+    val ingredients: List<Ingredient>?,
+    val isFavorite: Boolean
 ) : Serializable {
 
     constructor(recipeEntity: RecipeWithIngredients) : this(
@@ -24,7 +25,7 @@ data class RecipeInformation(
         recipeEntity.recipe.readyInMinutes,
         recipeEntity.recipe.likesCount,
         recipeEntity.recipe.recipeSummary, emptyList(),
-        recipeEntity.ingredients
+        recipeEntity.ingredients, true
     )
 
     fun toEntity(): Recipe =
@@ -33,7 +34,7 @@ data class RecipeInformation(
     companion object {
         val empty = RecipeInformation(
             0, "", "", 0,
-            0, "", emptyList(), emptyList()
+            0, "", emptyList(), emptyList(), false
         )
     }
 }

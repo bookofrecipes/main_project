@@ -54,7 +54,8 @@ class RecipesViewModel(
                 recipeInfo.likesCount,
                 recipeInfo.dishSummary,
                 recipeInfo.instruction,
-                recipeInfo.ingredientList
+                recipeInfo.ingredientList,
+                false
             )
         }
     }
@@ -80,7 +81,8 @@ class RecipesViewModel(
                 recipesInfo.likesCount,
                 recipesInfo.dishSummary,
                 recipesInfo.instruction,
-                recipesInfo.ingredientList
+                recipesInfo.ingredientList,
+                false
             )
         }
     }

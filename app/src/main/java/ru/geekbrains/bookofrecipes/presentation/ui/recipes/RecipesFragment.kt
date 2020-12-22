@@ -99,7 +99,6 @@ class RecipesFragment : BaseListFragment() {
         }
     }
 
-
     override fun onRecipeClick(recipeView: View, recipeData: RecipeInformation) {
         val recipeCardDetailTransitionName = getString(R.string.recipe_card_detail_transition_name)
         val extras = FragmentNavigatorExtras((recipeView to recipeCardDetailTransitionName))

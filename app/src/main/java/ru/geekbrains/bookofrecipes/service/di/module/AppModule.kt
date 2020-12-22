@@ -3,6 +3,7 @@ package ru.geekbrains.bookofrecipes.service.di.module
 import android.content.Context
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.geekbrains.bookofrecipes.data.RecipesRepository
 import ru.geekbrains.bookofrecipes.data.local.DbHelper

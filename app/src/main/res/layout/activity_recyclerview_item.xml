@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="true"
-    android:clickable="true"
     android:layout_margin="@dimen/margin_x_small"
+    android:clickable="true"
+    android:focusable="true"
+    android:transitionName="@string/recipe_card_transition_name"
     app:cardCornerRadius="@dimen/margin_medium"
     app:cardElevation="@dimen/margin_small"
-    android:transitionName="@string/recipe_card_transition_name"
     tools:ignore="UnusedAttribute">
 
     <LinearLayout
@@ -37,42 +36,61 @@
                 android:id="@+id/title_dish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_standard_header"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="@dimen/text_size_standard_header" />
             <!-- основной текст -->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/recipes_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:textSize="@dimen/text_size_standard"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary" />
+            <!--            <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                android:id="@+id/recipes_text"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/margin_medium"-->
+            <!--                android:textSize="@dimen/text_size_standard"-->
+            <!--                android:textAppearance="?attr/textAppearanceBody2"-->
+            <!--                android:textColor="?android:attr/textColorSecondary" />-->
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_x_small"
             android:orientation="horizontal">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/favorites_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:drawableStart="@drawable/ic_baseline_favorite_24"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_favorites"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="@dimen/margin_xxx_large"
+                android:layout_height="@dimen/margin_xxx_large"
+                app:icon="@drawable/ic_baseline_favorite_border_24"
                 app:iconSize="@dimen/margin_large" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/time_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_baseline_access_time_24"
-                android:layout_marginStart="@dimen/margin_medium"
-                app:icon="@drawable/ic_baseline_zoom_in_24"
-                app:iconSize="@dimen/margin_large" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:gravity="end"
+                android:paddingStart="@dimen/margin_large"
+                android:paddingEnd="@dimen/margin_large">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/likes_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_xxx_large"
+                    android:drawableStart="@drawable/ic_baseline_favorite_24"
+                    app:iconSize="@dimen/margin_large" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:drawableStart="@drawable/ic_baseline_access_time_24"
+                    app:icon="@drawable/ic_baseline_zoom_in_24"
+                    app:iconSize="@dimen/margin_large" />
+            </LinearLayout>
 
         </LinearLayout>
 

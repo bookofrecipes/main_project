@@ -1,10 +1,10 @@
 package ru.geekbrains.bookofrecipes.presentation.ui.recycler
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_recyclerview_item.view.*
-import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import kotlin.properties.Delegates
 import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
@@ -28,15 +28,30 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
     class RecipesHolder(private val listener: RecipesAdapterListener, itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
+        @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
         fun bind(recipeView: RecipeInformation) {
             itemView.image_dish.loadFromUrl(recipeView.imageUrl)
             itemView.title_dish.text = recipeView.name
             itemView.setOnClickListener {
                 listener.onRecipeClick(itemView, recipeView)
             }
-            itemView.favorites_text.setOnClickListener {
+            itemView.btn_favorites.setOnClickListener {
                 listener.onFavouriteIconClick(recipeView)
+                itemView.btn_favorites.icon =
+                    itemView.resources.getDrawable(R.drawable.ic_baseline_favorite_24, null)
             }
+
+            itemView.btn_favorites.icon = itemView.resources.getDrawable(
+                if (recipeView.isFavorite)
+                    R.drawable.ic_baseline_favorite_24
+                else
+                    R.drawable.ic_baseline_favorite_border_24,
+                null
+            )
+
+            itemView.likes_text.text = " ${recipeView.likes}"
+
+            itemView.time_text.text = " ${recipeView.cookTimeInMinutes} min"
 
             val recipeCardItemTransitionName =
                 itemView.resources.getString(R.string.recipe_card_transition_name, recipeView.id)
