@@ -47,16 +47,6 @@
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary" />
 
-            <ImageButton
-                android:id="@+id/recycler_navigation_icon"
-                android:layout_width="47dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:background="?attr/actionBarItemBackground"
-                android:contentDescription="@string/back"
-                app:layout_constraintBottom_toBottomOf="@+id/attachment_recycler_view"
-                app:srcCompat="@drawable/ic_arrow_down" />
-
         </LinearLayout>
 
         <!-- Кнопки -->

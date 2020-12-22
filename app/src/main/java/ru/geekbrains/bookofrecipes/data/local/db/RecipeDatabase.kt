@@ -19,7 +19,7 @@ import ru.geekbrains.bookofrecipes.data.local.entity.cross_ref.RecipeStepCrossRe
     RecipeStepCrossRef::class,
     RecipeNutrientCrossRef::class
 ],
-    version = 3)
+    version = 4)
 abstract class RecipeDatabase : RoomDatabase() {
     abstract fun recipeDao(): RecipeDao
 }

@@ -46,11 +46,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_xxx_large"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="@dimen/margin_medium"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textSize="@dimen/text_size_standard_header"
-                    app:layout_constraintEnd_toStartOf="@+id/navigation_icon"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_image_dish" />
 
@@ -65,16 +62,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginEnd="@dimen/margin_medium"
                     app:layout_constraintTop_toBottomOf="@+id/title_detail_dish" />
-
-                <ImageButton
-                    android:id="@+id/navigation_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/actionBarItemBackground"
-                    android:contentDescription="@string/back"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_image_dish"
-                    app:srcCompat="@drawable/ic_arrow_down" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
