@@ -33,7 +33,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_xx_small"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -49,7 +48,7 @@
                     android:layout_marginTop="@dimen/margin_xx_small"
                     android:layout_marginStart="@dimen/margin_xx_small"
                     android:layout_marginEnd="@dimen/margin_xx_small"
-                    android:textSize="@dimen/text_size_standard_header"/>
+                    android:textSize="@dimen/text_size_standard_header" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/full_detail_dish"
