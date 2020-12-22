@@ -37,9 +37,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.navigation_icon.setOnClickListener {
-            findNavController().navigateUp()
-        }
+
 
         val recipeData = arguments?.getSerializable("recipe") as RecipeInformation
 
