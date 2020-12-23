@@ -2,7 +2,7 @@
 Приложение предназначено для поиска кулинарных рецептов по ингредиентам, либо получение случайного набора, с возможностью сохранения в избранное.
 
 ## App sample
-![](https://github.com/bookofrecipes/main_project/blob/master/images/App.gif)
+![](https://github.com/bookofrecipes/main_project/blob/master/images/App_small.gif)
 
 ## API
 В качестве backend'а используется [Spoonacular API](https://spoonacular.com/food-api/docs)
