@@ -4,9 +4,12 @@
 В качестве backend'а используется [Spoonacular API](https://spoonacular.com/food-api/docs)
 ## Architecture
 Приложение спроектировано в соответствии с принципами чистой архитектуры и состоит из трех функциональных блоков, вынесенных в отдельные пакеты:
+![](https://github.com/bookofrecipes/main_project/blob/master/images/clean_architecture_reloaded_layers.png)
 * Data: работа с источниками данных (БД, сеть).
+![](https://github.com/bookofrecipes/main_project/blob/master/images/clean_archictecture_reloaded_repository.png)
 * Domain: предоставляет интерфейс репозитория для Data, и набора UseCase'ов для Presentation.
 * Presentation: UI реализованный с помощью паттерна MVVM средствами Android Jetpack.
+![](https://github.com/bookofrecipes/main_project/blob/master/images/clean_architecture_reloaded_mvvm_app.png)
 ## Stack
 * [Kotlin](https://kotlinlang.org/) - язык программирования
 * Библиотеки:
