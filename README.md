@@ -1,5 +1,9 @@
 # Book of recipes
 Приложение предназначено для поиска кулинарных рецептов по ингредиентам, либо получение случайного набора, с возможностью сохранения в избранное.
+
+## App sample
+![](https://github.com/bookofrecipes/main_project/blob/master/images/App.gif)
+
 ## API
 В качестве backend'а используется [Spoonacular API](https://spoonacular.com/food-api/docs)
 ## Architecture
@@ -7,12 +11,12 @@
 
 ![](https://github.com/bookofrecipes/main_project/blob/master/images/clean_architecture_reloaded_layers.png)
 
-* Data: работа с источниками данных (БД, сеть).
+* **Data**: работа с источниками данных (БД, сеть).
 
 ![](https://github.com/bookofrecipes/main_project/blob/master/images/clean_archictecture_reloaded_repository.png)
 
-* Domain: предоставляет интерфейс репозитория для Data, и набора UseCase'ов для Presentation.
-* Presentation: UI реализованный с помощью паттерна MVVM средствами Android Jetpack.
+* **Domain**: предоставляет интерфейс репозитория для Data, и набора UseCase'ов для Presentation.
+* **Presentation**: UI реализованный с помощью паттерна MVVM средствами Android Jetpack.
 
 ![](https://github.com/bookofrecipes/main_project/blob/master/images/clean_architecture_reloaded_mvvm_app.png)
 
