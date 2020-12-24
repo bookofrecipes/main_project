@@ -42,7 +42,8 @@ class DetailsFragment : Fragment() {
         val recipeData = arguments?.getSerializable("recipe") as RecipeInformation
 
         view.title_detail_dish.text = recipeData.name
-        view.full_detail_dish.text = recipeData.summary
+
+        recipeData.summary?.let { view.full_detail_dish.loadDataWithBaseURL(null, it, "text/html", "utf-8", null) }
         view.detail_image_dish.loadFromUrl(recipeData.imageUrl)
     }
 }

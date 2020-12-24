@@ -51,7 +51,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_image_dish" />
 
-                <com.google.android.material.textview.MaterialTextView
+                <WebView
                     android:id="@+id/full_detail_dish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,7 +61,8 @@
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginEnd="@dimen/margin_medium"
-                    app:layout_constraintTop_toBottomOf="@+id/title_detail_dish" />
+                    app:layout_constraintTop_toBottomOf="@+id/title_detail_dish"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
