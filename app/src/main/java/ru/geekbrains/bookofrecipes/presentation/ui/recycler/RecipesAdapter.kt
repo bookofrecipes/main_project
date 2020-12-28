@@ -45,7 +45,7 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
 
     override fun onItemDismiss(position: Int) {
         println("${collection[position].name}    swiped")
-        collection.removeAt(position)
+//        collection.removeAt(position)
         notifyItemRemoved(position)
     }
 

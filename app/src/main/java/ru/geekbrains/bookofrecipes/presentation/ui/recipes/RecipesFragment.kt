@@ -10,12 +10,15 @@ import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.inject
 import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.presentation.ui.BaseListFragment
+import ru.geekbrains.bookofrecipes.presentation.ui.recycler.RecipesAdapter
+import ru.geekbrains.bookofrecipes.presentation.ui.recycler.SimpleItemTouchHelperCallback
 import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragment
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
@@ -31,6 +34,8 @@ class RecipesFragment : BaseListFragment() {
 
     private val recipesViewModel: RecipesViewModel by inject()
     private val searchDialogFragment: SearchDialogFragment by inject()
+    lateinit var callback : ItemTouchHelper.Callback
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,8 +92,12 @@ class RecipesFragment : BaseListFragment() {
     }
 
     private fun initializeView(root: View) {
-        root.activity_recyclerview.layoutManager = LinearLayoutManager(root.context)
-        root.activity_recyclerview.adapter = listAdapter
+        root.activity_recyclerview.apply {
+            layoutManager = LinearLayoutManager(root.context)
+            adapter = listAdapter
+        }
+        callback = SimpleItemTouchHelperCallback(root.activity_recyclerview.adapter as RecipesAdapter)
+        ItemTouchHelper(callback).attachToRecyclerView(root.activity_recyclerview)
     }
 
     override fun handleFailure(failure: Failure?) {
