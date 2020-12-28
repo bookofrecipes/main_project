@@ -1,5 +1,6 @@
 package ru.geekbrains.bookofrecipes.presentation.ui.recycler
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +11,10 @@ import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.service.extensions.inflate
 import ru.geekbrains.bookofrecipes.service.extensions.loadFromUrl
+import java.util.*
 
 class RecipesAdapter(private val listener: RecipesAdapterListener) :
-    RecyclerView.Adapter<RecipesAdapter.RecipesHolder>() {
+    RecyclerView.Adapter<RecipesAdapter.RecipesHolder>(), ItemTouchHelperAdapter {
 
     internal var collection: List<RecipeInformation> by
     Delegates.observable(emptyList()) { _, _, _ -> notifyDataSetChanged() }
@@ -25,9 +27,30 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
 
     override fun getItemCount() = collection.size
 
+    //used to move up/down
+    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+        Log.e("onItemMove", "run ")
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                Collections.swap(collection, i, i + 1)
+            }
+        } else {
+            for (i in fromPosition downTo toPosition + 1) {
+                Collections.swap(collection, i, i - 1)
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition)
+        return true
+    }
+
+    override fun onItemDismiss(position: Int) {
+        println("${collection[position].name}    swiped")
+        collection.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     class RecipesHolder(private val listener: RecipesAdapterListener, itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-
         fun bind(recipeView: RecipeInformation) {
             itemView.image_dish.loadFromUrl(recipeView.imageUrl)
             itemView.title_dish.text = recipeView.name
