@@ -14,4 +14,10 @@
     <string name="ingredients">Please, enter ingredients</string>
     <string name="search">search</string>
     <string name="debug_button">Debug Button</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="tab_1">steps</string>
+    <string name="tab_2">Ingredients</string>
 </resources>

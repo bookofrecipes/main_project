@@ -21,70 +21,87 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_margin="@dimen/margin_x_small"
+            android:focusable="true"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_medium"
+            app:cardElevation="@dimen/margin_small"
+            android:background="@android:color/transparent"
             android:transitionName="@string/recipe_card_detail_transition_name">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/margin_medium"
-                android:paddingTop="@dimen/margin_xxx_medium">
+                android:orientation="vertical"
+                tools:ignore="WebViewLayout">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/detail_image_dish"
                     android:scaleType="fitXY"
                     android:layout_width="match_parent"
-                    android:layout_height="194dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="194dp" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabMode="fixed">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tab_1"
+                        android:icon="@drawable/ic_baseline_grading_24"
+                        />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tab_2"
+                        android:icon="@drawable/ic_baseline_receipt_long_24"
+                        />
+
+<!--                    <com.google.android.material.tabs.TabItem-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/tab_3"-->
+<!--                        android:icon="@drawable/ic_search_24dp"-->
+<!--                        />-->
+
+                </com.google.android.material.tabs.TabLayout>
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/detail_fragment_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                       >
+
+                </androidx.fragment.app.FragmentContainerView>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title_detail_dish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_xxx_large"
-                    android:layout_marginTop="8dp"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textSize="@dimen/text_size_standard_header"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_image_dish" />
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <WebView
                     android:id="@+id/full_detail_dish"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_xxx_large"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:textSize="@dimen/text_size_standard"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginEnd="@dimen/margin_medium"
-                    app:layout_constraintTop_toBottomOf="@+id/title_detail_dish"
                     />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
-    <!--                <androidx.recyclerview.widget.RecyclerView-->
-                <!--                    android:id="@+id/attachment_recycler_view"-->
-                <!--                    android:layout_width="356dp"-->
-                <!--                    android:layout_height="124dp"-->
-                <!--                    android:layout_marginBottom="16dp"-->
-                <!--                    android:overScrollMode="never"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintVertical_bias="0.52" />-->
-
-
-
 

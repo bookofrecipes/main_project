@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_recyclerview_item.view.*
+import kotlinx.android.synthetic.main.fragment_favorites.view.*
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import kotlin.properties.Delegates
 import ru.geekbrains.bookofrecipes.R
@@ -34,7 +35,7 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
             itemView.setOnClickListener {
                 listener.onRecipeClick(itemView, recipeView)
             }
-            itemView.favorites_button.setOnClickListener {
+            itemView.favorites_text.setOnClickListener {
                 listener.onFavouriteIconClick(recipeView)
             }
 

@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-     //Margins
+    //Margins
     <dimen name="hairline">1px</dimen>
     <dimen name="margin_xxxx_small">2dp</dimen>
     <dimen name="margin_xxx_small">3dp</dimen>
@@ -28,5 +28,8 @@
 
     //Corner radius
     <dimen name="bottom_sheet_dialog_corner_radius">10dp</dimen>
+    <dimen name="appbar_padding">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 
 </resources>
