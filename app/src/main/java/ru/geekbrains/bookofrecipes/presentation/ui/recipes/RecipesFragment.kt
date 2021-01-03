@@ -2,11 +2,15 @@ package ru.geekbrains.bookofrecipes.presentation.ui.recipes
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -35,6 +39,7 @@ class RecipesFragment : BaseListFragment() {
     private val recipesViewModel: RecipesViewModel by inject()
     private val searchDialogFragment: SearchDialogFragment by inject()
     lateinit var callback : ItemTouchHelper.Callback
+    private val vibrator: Vibrator by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,4 +124,21 @@ class RecipesFragment : BaseListFragment() {
 
     override fun onFavouriteIconClick(recipeData: RecipeInformation) =
         recipesViewModel.addToFavourites(recipeData)
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onItemSwiped(recipe: RecipeInformation) {
+        recipesViewModel.addToFavourites(recipe)
+        vibrate(vibrator)
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    fun vibrate(vibrator: Vibrator) {
+        val effect =
+                VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
+        if (vibrator.hasVibrator()) {
+            vibrator.vibrate(effect)
+        }
+    }
+
+
 }

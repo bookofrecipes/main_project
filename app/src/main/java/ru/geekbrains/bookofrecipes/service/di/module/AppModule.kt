@@ -1,6 +1,7 @@
 package ru.geekbrains.bookofrecipes.service.di.module
 
 import android.content.Context
+import android.os.Vibrator
 import androidx.room.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -35,6 +36,8 @@ val repoModule = module {
     single<Repository> { RecipesRepository(get(), get()) }
 
     single { SearchDialogFragment() }
+
+    single <Vibrator>{ androidContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator }
 
 }
 

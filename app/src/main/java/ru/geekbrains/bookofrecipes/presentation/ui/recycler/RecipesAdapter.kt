@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_recyclerview_item.view.*
-import ru.geekbrains.bookofrecipes.presentation.models.RecipeModelForRecycler
 import kotlin.properties.Delegates
 import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
@@ -16,8 +15,8 @@ import java.util.*
 class RecipesAdapter(private val listener: RecipesAdapterListener) :
     RecyclerView.Adapter<RecipesAdapter.RecipesHolder>(), ItemTouchHelperAdapter {
 
-    internal var collection: List<RecipeInformation> by
-    Delegates.observable(emptyList()) { _, _, _ -> notifyDataSetChanged() }
+    internal var collection: MutableList<RecipeInformation> by
+    Delegates.observable(mutableListOf()) { _, _, _ -> notifyDataSetChanged() }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         RecipesHolder(listener, parent.inflate(R.layout.activity_recyclerview_item))
@@ -45,7 +44,8 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
 
     override fun onItemDismiss(position: Int) {
         println("${collection[position].name}    swiped")
-//        collection.removeAt(position)
+        listener.onItemSwiped(collection[position])
+        collection.removeAt(position)
         notifyItemRemoved(position)
     }
 
@@ -69,7 +69,7 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
 
     interface RecipesAdapterListener {
         fun onRecipeClick(recipeView: View, recipeData: RecipeInformation)
-
+        fun onItemSwiped(recipe : RecipeInformation)
         fun onFavouriteIconClick(recipeData: RecipeInformation)
     }
 }

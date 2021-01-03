@@ -1,6 +1,6 @@
 package ru.geekbrains.bookofrecipes.presentation.ui
 
-import android.view.View
+
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,7 +17,7 @@ abstract class BaseListFragment : Fragment(), RecipesAdapter.RecipesAdapterListe
     protected open fun handleFailure(failure: Failure?) {}
 
     protected fun handleRecipeList(recipes: List<RecipeInformation>) {
-        listAdapter.collection = recipes
+        listAdapter.collection = recipes.toMutableList()
     }
 
     override fun onFavouriteIconClick(recipeData: RecipeInformation) {}
@@ -29,4 +29,6 @@ abstract class BaseListFragment : Fragment(), RecipesAdapter.RecipesAdapterListe
             Snackbar.LENGTH_LONG
         ).setAction("Reload") { action() }.show()
     }
+
+   override fun onItemSwiped(recipe: RecipeInformation){}
 }
