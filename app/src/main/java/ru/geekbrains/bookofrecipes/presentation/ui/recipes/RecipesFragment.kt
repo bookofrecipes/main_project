@@ -27,6 +27,7 @@ import ru.geekbrains.bookofrecipes.presentation.ui.searching.SearchDialogFragmen
 import ru.geekbrains.bookofrecipes.service.Failure
 import ru.geekbrains.bookofrecipes.service.Failure.NetworkConnection
 import ru.geekbrains.bookofrecipes.service.Failure.ServerError
+import ru.geekbrains.bookofrecipes.service.androidtools.vibrate
 import ru.geekbrains.bookofrecipes.service.extensions.observeData
 import ru.geekbrains.bookofrecipes.service.extensions.observeFailure
 
@@ -130,15 +131,4 @@ class RecipesFragment : BaseListFragment() {
         recipesViewModel.addToFavourites(recipe)
         vibrate(vibrator)
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    fun vibrate(vibrator: Vibrator) {
-        val effect =
-                VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
-        if (vibrator.hasVibrator()) {
-            vibrator.vibrate(effect)
-        }
-    }
-
-
 }
