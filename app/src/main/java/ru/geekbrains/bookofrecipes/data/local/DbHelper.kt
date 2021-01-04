@@ -40,12 +40,11 @@ class DbHelper(private val recipeDao: RecipeDao) : LocalDataSource {
         return Right(id)
     }
 
-    override suspend fun deleteRecipe(recipe: RecipeInformation): Either<Failure, Int> {
-        val id = recipeDao.deleteRecipe(recipe.id)
-//        recipe.ingredients?.forEach { ingredient ->
-//            recipeDao.deleteIngredient(ingredient.ingredientId)
-            recipeDao.deleteRecipeIngredientCrossRef(recipe.id)
-//        }
-        return Right(id)
+    override suspend fun deleteRecipe(recipe: RecipeInformation): Either<Failure, Long> {
+        recipeDao.deleteRecipe(recipe.id)
+        recipeDao.deleteRecipeIngredientCrossRef(recipe.id)
+        recipeDao.deleteRecipeNutrientCrossRef(recipe.id)
+        recipeDao.deleteRecipeStepCrossRef(recipe.id)
+        return Right(recipe.id)
     }
 }

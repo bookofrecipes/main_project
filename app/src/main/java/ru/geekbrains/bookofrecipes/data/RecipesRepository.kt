@@ -46,7 +46,6 @@ class RecipesRepository(
             localDataSource.getRecipeList()
 
 
-    override suspend fun deleteRecipeFromFavorites(recipe: RecipeInformation): Either<Failure, Int> =
+    override suspend fun deleteRecipeFromFavorites(recipe: RecipeInformation): Either<Failure, Long> =
         localDataSource.deleteRecipe(recipe)
-
 }

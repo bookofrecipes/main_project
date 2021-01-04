@@ -29,7 +29,7 @@ class FavoritesViewModel(
         deleteRecipe(recipeInformation){it.fold(::handleFailure, ::handleFavoritesDeleting)
         }
     }
-    private fun handleFavoritesDeleting(id: Int) {
+    private fun handleFavoritesDeleting(id: Long) {
         Log.d("Room id deleted: ", id.toString())
     }
 }

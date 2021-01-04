@@ -10,12 +10,12 @@ import com.google.android.material.color.MaterialColors
 class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter) : ItemTouchHelper.Callback() {
 
     override fun isLongPressDragEnabled(): Boolean {
-        Log.e("isLongPressDragEnabled", "started ")
+//        Log.e("isLongPressDragEnabled", "started ")
         return false
     }
 
     override fun isItemViewSwipeEnabled(): Boolean {
-        Log.e("isItemViewSwipeEnabled", "started ")
+//        Log.e("isItemViewSwipeEnabled", "started ")
         return true
     }
 
@@ -23,7 +23,7 @@ class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter)
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder
     ): Int {
-        Log.e("getMovementFlags", "started ")
+//        Log.e("getMovementFlags", "started ")
         // Set movement flags based on the layout manager
         return if (recyclerView.layoutManager is GridLayoutManager) {
             val dragFlags =
@@ -49,7 +49,7 @@ class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter)
             source: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder
     ): Boolean {
-        Log.e("onMove", "started")
+//        Log.e("onMove", "started")
         if (source.itemViewType != target.itemViewType) {
             return false
         }
@@ -59,7 +59,7 @@ class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter)
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
-        Log.e("onSwiped", "started")
+//        Log.e("onSwiped", "started")
         // Notify the adapter of the dismissal
         adapter.onItemDismiss(viewHolder.adapterPosition)
     }
@@ -73,7 +73,7 @@ class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter)
             actionState: Int,
             isCurrentlyActive: Boolean
     ) {
-        Log.e("onChildDraw", "started ")
+//        Log.e("onChildDraw", "started ")
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             // Fade out the view as it is swiped out of the parent's bounds
             val alpha =
@@ -93,7 +93,7 @@ class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter)
             viewHolder: RecyclerView.ViewHolder?,
             actionState: Int
     ) {
-        Log.e("onSelectedChanged", "started ")
+//        Log.e("onSelectedChanged", "started ")
         // We only want the active item to change
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
             if (viewHolder is ItemTouchHelperViewHolder) {
@@ -110,7 +110,7 @@ class SimpleItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter)
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder
     ) {
-        Log.e("clearView", "started ")
+//        Log.e("clearView", "started ")
         super.clearView(recyclerView, viewHolder)
         viewHolder.itemView.alpha = MaterialColors.ALPHA_FULL
         if (viewHolder is ItemTouchHelperViewHolder) {

@@ -12,9 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_favorites.view.*
-import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 import ru.geekbrains.bookofrecipes.R
 import ru.geekbrains.bookofrecipes.presentation.models.RecipeInformation
 import ru.geekbrains.bookofrecipes.presentation.ui.BaseListFragment

@@ -28,7 +28,7 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
 
     //used to move up/down
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-        Log.e("onItemMove", "run ")
+//        Log.e("onItemMove", "run ")
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
                 Collections.swap(collection, i, i + 1)
@@ -43,7 +43,7 @@ class RecipesAdapter(private val listener: RecipesAdapterListener) :
     }
 
     override fun onItemDismiss(position: Int) {
-        println("${collection[position].name}    swiped")
+//        println("${collection[position].name}    swiped")
         listener.onItemSwiped(collection[position])
         collection.removeAt(position)
         notifyItemRemoved(position)

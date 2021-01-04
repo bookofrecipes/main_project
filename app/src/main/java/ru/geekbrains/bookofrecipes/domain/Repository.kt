@@ -27,5 +27,5 @@ interface Repository {
 
     suspend fun getFavouriteRecipes(): Either<Failure, List<RecipeInformation>>
 
-    suspend fun deleteRecipeFromFavorites(recipe: RecipeInformation): Either<Failure, Int>
+    suspend fun deleteRecipeFromFavorites(recipe: RecipeInformation): Either<Failure, Long>
 }
