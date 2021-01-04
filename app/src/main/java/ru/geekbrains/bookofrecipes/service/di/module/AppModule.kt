@@ -24,7 +24,8 @@ val appModule = module {
 
 val repoModule = module {
     single { RecipesViewModel(get(), get(), get(), get()) }
-    single { FavoritesViewModel(get()) }
+    single { FavoritesViewModel(get(),get()) }
+    single { DeleteRecipeFromFavorites(get()) }
 
     single { GetRandomRecipes(get()) }
     single { GetRecipesByIngredients(get()) }

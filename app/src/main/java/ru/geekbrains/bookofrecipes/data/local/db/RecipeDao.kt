@@ -54,7 +54,7 @@ interface RecipeDao {
     suspend fun deleteIngredient(id: Long)
 
     @Query("DELETE FROM recipe WHERE recipeId = :id")
-    suspend fun deleteRecipe(id: Long)
+    suspend fun deleteRecipe(id: Long): Int
 
     @Query("DELETE FROM nutrient WHERE nutrientId = :id")
     suspend fun deleteNutrient(id: Long)
@@ -82,4 +82,14 @@ interface RecipeDao {
     @Transaction
     @Query("SELECT * FROM recipe")
     suspend fun getAllRecipesWithSteps(): List<RecipeWithIngredients>
+
+
+    @Query("DELETE FROM recipeingredientcrossref WHERE recipeId = :recipeId")
+    suspend fun deleteRecipeIngredientCrossRef(recipeId : Long)
+
+    @Query("DELETE FROM recipestepcrossref WHERE recipeId = :recipeId")
+    suspend fun deleteRecipeStepCrossRef(recipeId : Long)
+
+    @Query("DELETE FROM recipenutrientcrossref WHERE recipeId = :recipeId")
+    suspend fun deleteRecipeNutrientCrossRef(recipeId : Long)
 }

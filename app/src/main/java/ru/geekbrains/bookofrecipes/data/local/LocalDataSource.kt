@@ -8,4 +8,6 @@ interface LocalDataSource {
     suspend fun getRecipeList(): Either<Failure, List<RecipeInformation>>
 
     suspend fun saveRecipe(recipe: RecipeInformation): Either<Failure, Long>
+
+    suspend fun deleteRecipe(recipe: RecipeInformation): Either<Failure, Int>
 }

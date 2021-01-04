@@ -20,8 +20,8 @@ class RecipesRepository(
     }
 
     override suspend fun getRecipeInformation(
-        id: Long,
-        sourceType: DataSourceType
+            id: Long,
+            sourceType: DataSourceType
     ): Either<Failure, RecipeInformationResponse?> {
         when (sourceType) {
             DataSourceType.LocalDataSource -> TODO()
@@ -30,18 +30,23 @@ class RecipesRepository(
     }
 
     override suspend fun getRecipeByIngredients(
-        ingredients: String,
-        quantityOfRecipes: Int
+            ingredients: String,
+            quantityOfRecipes: Int
     ): Either<Failure, RecipesByIngredientsResponse?> {
         return remoteDataSource.getData(ingredients, quantityOfRecipes)
     }
 
     override suspend fun getRecipeInformationBulk(ids: String): Either<Failure, List<RecipeInformationResponse>> =
-        remoteDataSource.getBulkRecipeInfo(ids)
+            remoteDataSource.getBulkRecipeInfo(ids)
 
     override suspend fun saveFavoriteRecipe(recipe: RecipeInformation): Either<Failure, Long> =
-        localDataSource.saveRecipe(recipe)
+            localDataSource.saveRecipe(recipe)
 
     override suspend fun getFavouriteRecipes(): Either<Failure, List<RecipeInformation>> =
-        localDataSource.getRecipeList()
+            localDataSource.getRecipeList()
+
+
+    override suspend fun deleteRecipeFromFavorites(recipe: RecipeInformation): Either<Failure, Int> =
+        localDataSource.deleteRecipe(recipe)
+
 }
